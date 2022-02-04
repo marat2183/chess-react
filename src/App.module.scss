@@ -1,0 +1,19 @@
+.content{
+  min-height: 100vh;
+  background-color: #E5E5E5;
+
+  &__wrapper{
+    padding: 15px 0;
+    width: calc(100% - 15px);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  &__title{
+    text-align: center;
+    font-weight: 900;
+    font-size: 50px;
+    color: #34364C;
+    text-transform: uppercase;
+  }
+}
