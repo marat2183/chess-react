@@ -8,19 +8,19 @@ import {setSelectedField, resetSelectedField} from 'slices/players.js'
 
 const Field = ({fieldNumber, field}) => {
   const dispatch = useDispatch()
-  const playersList = useSelector((state) => state.players.players)
-  const order = useSelector((state) => state.game.order)
-  const color = playersList[order].color;
+  const playersList = useSelector((state) => state.players.values)
+  const palyerId = useSelector((state) => state.game.order)
+  const playerColor = playersList[palyerId].color;
 
   const onClickHandler = (field) => {
-    if (!playersList[order].selectedField) {
+    if (!playersList[palyerId].selectedField) {
       if (!field.isBusy){
         console.log('field is empty')
       }
-      else if (field.isBusy && field.figure.color === color){
+      else if (field.isBusy && field.figure.color === playerColor){
         dispatch(setFieldActive(field));
         dispatch(setSelectedField({
-          id: order, 
+          id: palyerId, 
           field: {
             fieldName: field.fieldName,
             figure: field.figure
@@ -28,24 +28,24 @@ const Field = ({fieldNumber, field}) => {
         }))
         console.log('figure selected')
       }
-      else if (field.isBusy && field.figure.color !== color){
+      else if (field.isBusy && field.figure.color !== playerColor){
         console.log('its not your figure color')
       }
     }
-    else if (playersList[order].selectedField){
-      if (field.fieldName === playersList[order].selectedField.fieldName){
+    else if (playersList[palyerId].selectedField){
+      if (field.fieldName === playersList[palyerId].selectedField.fieldName){
         dispatch(setFieldDisactive(field));
-        dispatch(resetSelectedField({id: order}))
+        dispatch(resetSelectedField({id: palyerId}))
         console.log("remove selected figure")
       }
       else{
-        dispatch(DeleteFigureFromField({fieldName: playersList[order].selectedField.fieldName}))
-        dispatch(setFieldDisactive({fieldName: playersList[order].selectedField.fieldName}))
+        dispatch(DeleteFigureFromField({fieldName: playersList[palyerId].selectedField.fieldName}))
+        dispatch(setFieldDisactive({fieldName: playersList[palyerId].selectedField.fieldName}))
         dispatch(AddFigureToField({
           fieldName: field.fieldName,
-          figure: playersList[order].selectedField.figure
+          figure: playersList[palyerId].selectedField.figure
         }))
-        dispatch(resetSelectedField({id: order}))
+        dispatch(resetSelectedField({id: palyerId}))
         dispatch(toggleOrder())
         console.log('move')
       }

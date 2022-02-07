@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const initialState = {
-    players: [
+    values: [
       {
         id: 0,
         color: 'white',
@@ -26,18 +26,18 @@ export const playersSlice = createSlice({
   initialState,
   reducers: {
     setSelectedField: (state, action) => {
-      state.players[action.payload.id].selectedField = action.payload.field
+      state.values[action.payload.id].selectedField = action.payload.field
     },
     resetSelectedField: (state, action) => {
-      state.players[action.payload.id].selectedField = null;
+      state.values[action.payload.id].selectedField = null;
     },
     addToBeatenFigures: (state, action) => {
-      state.players[action.payload.id].beatenFigures = 
-      [...state.players[action.payload.id].beatenFigures, action.payload.figure]
+      state.values[action.payload.id].beatenFigures = 
+      [...state.values[action.payload.id].beatenFigures, action.payload.figure]
     },
     removeFromFigures: (state, action) => {
-      state.players[action.payload.id].figures = 
-      state.players[action.payload.id].figures.filter((figure) => figure !== action.payload.figure)
+      state.values[action.payload.id].figures = 
+      state.values[action.payload.id].figures.filter((figure) => figure !== action.payload.figure)
     },
   },
 })
