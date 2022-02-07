@@ -6,6 +6,7 @@ import { figuresImgs } from 'figures.js';
 import { setFieldActive, setFieldDisactive, DeleteFigureFromField, AddFigureToField, toggleOrder } from 'slices/game.js';
 import {setSelectedField, resetSelectedField} from 'slices/players.js'
 
+
 const Field = ({fieldNumber, field}) => {
   const dispatch = useDispatch()
   const playersList = useSelector((state) => state.players.values)

@@ -33,11 +33,12 @@ export const gameSlice = createSlice({
     },
 
     DeleteFigureFromField: (state, action) => {
-      state.fields[action.payload.fieldName].figure = null
+      state.fields[action.payload.fieldName] = {...state.fields[action.payload.fieldName], isBusy: false, figure: null}
     },
 
     AddFigureToField: (state, action) => {
-      state.fields[action.payload.fieldName].figure = action.payload.figure
+      state.fields[action.payload.fieldName] = 
+      {...state.fields[action.payload.fieldName], isBusy: true, figure: action.payload.figure}
     },
 
   },

@@ -1,11 +1,11 @@
 import React from 'react';
-import Field from 'components/Field';
 import { useSelector } from 'react-redux';
 
+import Field from 'components/Field';
 import s from './index.module.scss'
 
-const Board = () => {
 
+const Board = () => {
   const fieldsObject = useSelector((state) => state.game.fields)
   const fieldsList = Object.values(fieldsObject)
 
