@@ -6,3 +6,10 @@
   flex-wrap: wrap;
   border: 5px solid #fff;
 }
+
+
+@media (max-width: 450px){
+  .board{
+    width: 330px;
+  }
+}

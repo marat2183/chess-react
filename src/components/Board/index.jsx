@@ -1,16 +1,19 @@
 import React from 'react';
 import Field from 'components/Field';
-import { fieldList } from 'constants';
+import { useSelector } from 'react-redux';
 
 import s from './index.module.scss'
 
 const Board = () => {
 
+  const fieldsObject = useSelector((state) => state.game.fields)
+  const fieldsList = Object.values(fieldsObject)
+
   return (
     <div className={s['board']}>
       {
-        fieldList.map((currentField, index) => {
-          return  <Field key={index} field={currentField} index={index} />
+        fieldsList.map((currentField, index) => {
+          return  <Field key={index} field={currentField} fieldNumber={index} />
         })
       }
     </div>
