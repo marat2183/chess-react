@@ -16,10 +16,10 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     startGame: (state) => {
-      state.isActive = true
+      state.isActive = true;
     },
     stopGame: (state) => {
-      state.isActive = false
+      state.isActive = false;
     },
     toggleOrder: (state) => {
       state.order = state.order ? 0 : 1;
@@ -28,18 +28,20 @@ export const gameSlice = createSlice({
         state.fields[action.payload.fieldName] = {...state.fields[action.payload.fieldName], isActive: true}
     },
 
-    setFieldDisactive: (state, action) => {
+    setFieldInactive: (state, action) => {
       state.fields[action.payload.fieldName] = {...state.fields[action.payload.fieldName], isActive: false}
     },
 
-    deleteFigureFromField: (state, action) => {
-      state.fields[action.payload.fieldName] = {...state.fields[action.payload.fieldName], isBusy: false, figure: null}
-    },
-
-    addFigureToField: (state, action) => {
-      state.fields[action.payload.fieldName] = 
-      {...state.fields[action.payload.fieldName], isBusy: true, figure: action.payload.figure}
-    },
+    changeFigurePosition: (state, action) => {
+      state.fields[action.payload.oldFieldName] = {...state.fields[action.payload.oldFieldName], 
+                                                    isBusy: false, 
+                                                    figure: null
+                                                  }
+      state.fields[action.payload.newFieldName] = {...state.fields[action.payload.newFieldName], 
+                                                    isBusy: true, 
+                                                    figure: action.payload.figure
+                                                  }
+    }
 
   },
 })
@@ -48,9 +50,8 @@ export const {
   startGame, 
   stopGame, 
   setFieldActive, 
-  setFieldDisactive,
-  deleteFigureFromField, 
-  addFigureToField,
+  setFieldInactive,
+  changeFigurePosition, 
   toggleOrder } = gameSlice.actions
 
 export default gameSlice.reducer

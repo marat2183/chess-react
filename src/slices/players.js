@@ -26,18 +26,18 @@ export const playersSlice = createSlice({
   initialState,
   reducers: {
     setSelectedField: (state, action) => {
-      state.values[action.payload.id].selectedField = action.payload.field
+      state.values[action.payload.id].selectedField = action.payload.field;
     },
     resetSelectedField: (state, action) => {
       state.values[action.payload.id].selectedField = null;
     },
     addToBeatenFigures: (state, action) => {
       state.values[action.payload.id].beatenFigures = 
-      [...state.values[action.payload.id].beatenFigures, action.payload.figure]
+      [...state.values[action.payload.id].beatenFigures, action.payload.figure];
     },
     removeFromFigures: (state, action) => {
       state.values[action.payload.id].figures = 
-      state.values[action.payload.id].figures.filter((figure) => figure !== action.payload.figure)
+      state.values[action.payload.id].figures.filter((figure) => figure !== action.payload.figure);
     },
   },
 })
