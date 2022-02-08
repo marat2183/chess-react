@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import s from'./index.module.scss'
 import { figuresImgs } from 'figures.js';
-import { setFieldActive, setFieldDisactive, DeleteFigureFromField, AddFigureToField, toggleOrder } from 'slices/game.js';
+import { setFieldActive, setFieldDisactive, deleteFigureFromField, addFigureToField, toggleOrder } from 'slices/game.js';
 import {setSelectedField, resetSelectedField} from 'slices/players.js'
 
 
@@ -13,46 +13,7 @@ const Field = ({fieldNumber, field}) => {
   const playerId = useSelector((state) => state.game.order)
   const playerColor = playersList[playerId].color;
 
-  const onClickHandler = (field) => {
-    if (!playersList[playerId].selectedField) {
-      if (!field.isBusy){
-        console.log('field is empty')
-      }
-      else if (field.isBusy && field.figure.color === playerColor){
-        dispatch(setFieldActive(field));
-        dispatch(setSelectedField({
-          id: playerId, 
-          field: {
-            fieldName: field.fieldName,
-            figure: field.figure
-          }
-        }))
-        console.log('figure selected')
-      }
-      else if (field.isBusy && field.figure.color !== playerColor){
-        console.log('its not your figure color')
-      }
-    }
-    else if (playersList[playerId].selectedField){
-      if (field.fieldName === playersList[playerId].selectedField.fieldName){
-        dispatch(setFieldDisactive(field));
-        dispatch(resetSelectedField({id: playerId}))
-        console.log("remove selected figure")
-      }
-      else{
-        dispatch(DeleteFigureFromField({fieldName: playersList[playerId].selectedField.fieldName}))
-        dispatch(setFieldDisactive({fieldName: playersList[playerId].selectedField.fieldName}))
-        dispatch(AddFigureToField({
-          fieldName: field.fieldName,
-          figure: playersList[playerId].selectedField.figure
-        }))
-        dispatch(resetSelectedField({id: playerId}))
-        dispatch(toggleOrder())
-        console.log('move')
-      }
-    }
-  }
-
+  
   const definingСlassName = (fieldNumber) => {
     const colNum = fieldNumber % 8;
     const rowNum = Math.floor(fieldNumber / 8)
@@ -60,6 +21,44 @@ const Field = ({fieldNumber, field}) => {
       return [s['field'], s['field--light']];
     }
     return [s['field'], s['field--dark']];
+  }
+
+  const onClickHandler = (field) => {
+    if (!playersList[playerId].selectedField) {
+      if (!field.isBusy){
+        console.log('field is empty')
+        return
+      }
+      else if (field.isBusy && field.figure.color !== playerColor){
+        console.log('its not your figure color')
+        return
+      }
+      dispatch(setFieldActive(field));
+      dispatch(setSelectedField({
+        id: playerId, 
+        field: {
+          fieldName: field.fieldName,
+          figure: field.figure
+        }
+      }))
+      console.log('figure selected')
+      return
+    }
+    if (field.fieldName === playersList[playerId].selectedField.fieldName){
+      dispatch(setFieldDisactive(field));
+      dispatch(resetSelectedField({id: playerId}))
+      console.log("remove selected figure")
+      return
+    }
+    dispatch(deleteFigureFromField({fieldName: playersList[playerId].selectedField.fieldName}))
+    dispatch(setFieldDisactive({fieldName: playersList[playerId].selectedField.fieldName}))
+    dispatch(addFigureToField({
+      fieldName: field.fieldName,
+      figure: playersList[playerId].selectedField.figure
+    }))
+    dispatch(resetSelectedField({id: playerId}))
+    dispatch(toggleOrder())
+    console.log('move')
   }
 
   const classNames = definingСlassName(fieldNumber);

@@ -32,11 +32,11 @@ export const gameSlice = createSlice({
       state.fields[action.payload.fieldName] = {...state.fields[action.payload.fieldName], isActive: false}
     },
 
-    DeleteFigureFromField: (state, action) => {
+    deleteFigureFromField: (state, action) => {
       state.fields[action.payload.fieldName] = {...state.fields[action.payload.fieldName], isBusy: false, figure: null}
     },
 
-    AddFigureToField: (state, action) => {
+    addFigureToField: (state, action) => {
       state.fields[action.payload.fieldName] = 
       {...state.fields[action.payload.fieldName], isBusy: true, figure: action.payload.figure}
     },
@@ -49,8 +49,8 @@ export const {
   stopGame, 
   setFieldActive, 
   setFieldDisactive,
-  DeleteFigureFromField, 
-  AddFigureToField,
+  deleteFigureFromField, 
+  addFigureToField,
   toggleOrder } = gameSlice.actions
 
 export default gameSlice.reducer

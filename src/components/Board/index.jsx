@@ -13,7 +13,7 @@ const Board = () => {
     <div className={s['board']}>
       {
         fieldsList.map((currentField, index) => {
-          return  <Field key={index} field={currentField} fieldNumber={index} />
+          return <Field key={currentField.fieldName} field={currentField} fieldNumber={index} />
         })
       }
     </div>
