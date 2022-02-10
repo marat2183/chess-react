@@ -6,11 +6,13 @@ const PlayerService = class {
 
   getFiguresFields = () => this.figuresFieldsObj;
 
-  changeFigurePosition = (newFieldName) => {
-    const {fieldName, isActive, isBusy, figure} = this.selectedFigureField
+  changeFigurePosition = (newField) => {
+    const {fieldName, isActive, isBusy, figure} = this.selectedFigureField;
+
     delete this.figuresFieldsObj[fieldName]
-    this.figuresFieldsObj[newFieldName] = {
-      fieldName: newFieldName,
+
+    this.figuresFieldsObj[newField.fieldName] = {
+      fieldName: newField.fieldName,
       isActive,
       isBusy,
       figure

@@ -8,16 +8,34 @@ const GameManagerService = class {
     this.order = orderColor;
   }
 
+  toggleOrder = () => {
+    this.order = this.order === 'white' ? 'black' : 'white';
+  }
+
   getPlayerByOrder = () => {
     const currentPlayer = this.order === 'white' ? this.whiteFigurePlayer : this.blackFigurePlayer;
     return currentPlayer;
   }
 
-  toggleOrder = () => {
-    this.order = this.order === 'white' ? 'black' : 'white';
+  getPlayerSelectedField = () => {
+    const player = this.getPlayerByOrder();
+    const field = player.getSelectedFigureField();
+    return field;
   }
 
-  getAllFiguresFields = () => {
+  setPlayerSelectedField = (field) => {
+    const player = this.getPlayerByOrder();
+    player.setSelectedFigureField(field);
+  }
+
+  changePlayerFigurePosition = (newField) => {
+    const player = this.getPlayerByOrder();
+    //validation move
+    player.changeFigurePosition(newField)
+    player.resetSelectedFigureField()
+  }
+
+  getFiguresFields = () => {
     const whiteFigures = this.whiteFigurePlayer.getFiguresFields();
     const blackFigures = this.blackFigurePlayer.getFiguresFields();
     return {...whiteFigures, ...blackFigures}
@@ -25,7 +43,7 @@ const GameManagerService = class {
 
   getAllFields = () => {
     const defaultFields = fieldsInit;
-    const figuresFields = this.getAllFiguresFields();
+    const figuresFields = this.getFiguresFields();
     const updatedFields = {...defaultFields, ...figuresFields}
     return updatedFields;
   }

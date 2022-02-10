@@ -4,7 +4,7 @@ import s from'./index.module.scss'
 import { figuresImgs } from 'figures.js'
 
 
-const Field = ({fieldNumber, field}) => {
+const Field = ({fieldNumber, field, onClickHandler}) => {
   
   const definingСlassName = (fieldNumber) => {
     const colNum = fieldNumber % 8;
@@ -13,10 +13,6 @@ const Field = ({fieldNumber, field}) => {
       return [s['field'], s['field--light']];
     }
     return [s['field'], s['field--dark']];
-  }
-
-  const onClickHandler = (field) => {
-   console.log('click')
   }
 
   const classNames = definingСlassName(fieldNumber);
