@@ -1,4 +1,4 @@
-const fieldList = {
+const blackFiguresFieldsInit = {
   '8A':{
     fieldName: '8A',
     isActive: false,
@@ -142,6 +142,252 @@ const fieldList = {
       type:'pawn',
       color: 'black'
     }
+  }
+}
+
+const whiteFiguresFieldsInit = {
+  '2A':{
+    fieldName: '2A',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '2B':{
+    fieldName: '2B',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '2C':{
+    fieldName: '2C',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '2D':{
+    fieldName: '2D',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '2E':{
+    fieldName: '2E',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '2F':{
+    fieldName: '2F',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '2G':{
+    fieldName: '2G',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '2H':{
+    fieldName: '2H',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'pawn',
+      color: 'white'
+    }
+  },
+  '1A':{
+    fieldName: '1A',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'rook',
+      color: 'white'
+    }
+  },
+  '1B':{
+    fieldName: '1B',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'knight',
+      color: 'white'
+    }
+  },
+  '1C':{
+    fieldName: '1C',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'bishop',
+      color: 'white'
+    }
+  },
+  '1D':{
+    fieldName: '1D',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'queen',
+      color: 'white'
+    }
+  },
+  '1E':{
+    fieldName: '1E',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'king',
+      color: 'white'
+    }
+  },
+  '1F':{
+    fieldName: '1F',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'bishop',
+      color: 'white'
+    }
+  },
+  '1G':{
+    fieldName: '1G',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'knight',
+      color: 'white'
+    }
+  },
+  '1H':{
+    fieldName: '1H',
+    isActive: false,
+    isBusy: true,
+    figure: {
+      type:'rook',
+      color: 'white'
+    }
+  }
+}
+
+const fieldsInit = {
+  '8A':{
+    fieldName: '8A',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '8B':{
+    fieldName: '8B',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '8C':{
+    fieldName: '8C',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '8D':{
+    fieldName: '8D',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '8E':{
+    fieldName: '8E',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '8F':{
+    fieldName: '8F',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '8G':{
+    fieldName: '8G',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '8H':{
+    fieldName: '8H',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7A':{
+    fieldName: '7A',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7B':{
+    fieldName: '7B',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7C':{
+    fieldName: '7C',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7D':{
+    fieldName: '7D',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7E':{
+    fieldName: '7E',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7F':{
+    fieldName: '7F',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7G':{
+    fieldName: '7G',
+    isActive: false,
+    isBusy: false,
+    figure: null
+  },
+  '7H':{
+    fieldName: '7H',
+    isActive: false,
+    isBusy: false,
+    figure: null
   },
   '6A':{
     fieldName: '6A',
@@ -338,147 +584,99 @@ const fieldList = {
   '2A':{
     fieldName: '2A',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '2B':{
     fieldName: '2B',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '2C':{
     fieldName: '2C',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '2D':{
     fieldName: '2D',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '2E':{
     fieldName: '2E',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '2F':{
     fieldName: '2F',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '2G':{
     fieldName: '2G',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '2H':{
     fieldName: '2H',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'pawn',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1A':{
     fieldName: '1A',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'rook',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1B':{
     fieldName: '1B',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'knight',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1C':{
     fieldName: '1C',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'bishop',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1D':{
     fieldName: '1D',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'queen',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1E':{
     fieldName: '1E',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'king',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1F':{
     fieldName: '1F',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'bishop',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1G':{
     fieldName: '1G',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'knight',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   },
   '1H':{
     fieldName: '1H',
     isActive: false,
-    isBusy: true,
-    figure: {
-      type:'rook',
-      color: 'white'
-    }
+    isBusy: false,
+    figure: null
   }
 }
 
-export default fieldList
+export {blackFiguresFieldsInit, whiteFiguresFieldsInit, fieldsInit}

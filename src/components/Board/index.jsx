@@ -1,12 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import Field from 'components/Field';
 import s from './index.module.scss'
 
+import gameManager from 'services/gameManagerService.js'
+
 
 const Board = () => {
-  const fieldsObject = useSelector((state) => state.game.fields)
+  const fieldsObject = gameManager.getAllFields();
   const fieldsList = Object.values(fieldsObject)
 
   return (
