@@ -1,9 +1,9 @@
 const blackFiguresFieldsInit = {
   '8A':{
     fieldName: '8A',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'rook',
       color: 'black'
@@ -11,9 +11,9 @@ const blackFiguresFieldsInit = {
   },
   '8B':{
     fieldName: '8B',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'knight',
       color: 'black'
@@ -21,9 +21,9 @@ const blackFiguresFieldsInit = {
   },
   '8C':{
     fieldName: '8C',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'bishop',
       color: 'black'
@@ -31,9 +31,9 @@ const blackFiguresFieldsInit = {
   },
   '8D':{
     fieldName: '8D',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'queen',
       color: 'black'
@@ -41,9 +41,9 @@ const blackFiguresFieldsInit = {
   },
   '8E':{
     fieldName: '8E',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'king',
       color: 'black'
@@ -51,9 +51,9 @@ const blackFiguresFieldsInit = {
   },
   '8F':{
     fieldName: '8F',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'bishop',
       color: 'black'
@@ -61,9 +61,9 @@ const blackFiguresFieldsInit = {
   },
   '8G':{
     fieldName: '8G',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'knight',
       color: 'black'
@@ -71,9 +71,9 @@ const blackFiguresFieldsInit = {
   },
   '8H':{
     fieldName: '8H',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'rook',
       color: 'black'
@@ -81,9 +81,9 @@ const blackFiguresFieldsInit = {
   },
   '7A':{
     fieldName: '7A',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -91,9 +91,9 @@ const blackFiguresFieldsInit = {
   },
   '7B':{
     fieldName: '7B',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -101,9 +101,9 @@ const blackFiguresFieldsInit = {
   },
   '7C':{
     fieldName: '7C',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -111,9 +111,9 @@ const blackFiguresFieldsInit = {
   },
   '7D':{
     fieldName: '7D',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -121,9 +121,9 @@ const blackFiguresFieldsInit = {
   },
   '7E':{
     fieldName: '7E',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -131,9 +131,9 @@ const blackFiguresFieldsInit = {
   },
   '7F':{
     fieldName: '7F',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -141,9 +141,9 @@ const blackFiguresFieldsInit = {
   },
   '7G':{
     fieldName: '7G',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -151,9 +151,9 @@ const blackFiguresFieldsInit = {
   },
   '7H':{
     fieldName: '7H',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'black'
@@ -164,9 +164,9 @@ const blackFiguresFieldsInit = {
 const whiteFiguresFieldsInit = {
   '2A':{
     fieldName: '2A',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -174,9 +174,9 @@ const whiteFiguresFieldsInit = {
   },
   '2B':{
     fieldName: '2B',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -184,9 +184,9 @@ const whiteFiguresFieldsInit = {
   },
   '2C':{
     fieldName: '2C',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -194,9 +194,9 @@ const whiteFiguresFieldsInit = {
   },
   '2D':{
     fieldName: '2D',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -204,9 +204,9 @@ const whiteFiguresFieldsInit = {
   },
   '2E':{
     fieldName: '2E',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -214,9 +214,9 @@ const whiteFiguresFieldsInit = {
   },
   '2F':{
     fieldName: '2F',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -224,9 +224,9 @@ const whiteFiguresFieldsInit = {
   },
   '2G':{
     fieldName: '2G',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -234,9 +234,9 @@ const whiteFiguresFieldsInit = {
   },
   '2H':{
     fieldName: '2H',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'pawn',
       color: 'white'
@@ -244,9 +244,9 @@ const whiteFiguresFieldsInit = {
   },
   '1A':{
     fieldName: '1A',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'rook',
       color: 'white'
@@ -254,9 +254,9 @@ const whiteFiguresFieldsInit = {
   },
   '1B':{
     fieldName: '1B',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'knight',
       color: 'white'
@@ -264,9 +264,9 @@ const whiteFiguresFieldsInit = {
   },
   '1C':{
     fieldName: '1C',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'bishop',
       color: 'white'
@@ -274,9 +274,9 @@ const whiteFiguresFieldsInit = {
   },
   '1D':{
     fieldName: '1D',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'queen',
       color: 'white'
@@ -284,9 +284,9 @@ const whiteFiguresFieldsInit = {
   },
   '1E':{
     fieldName: '1E',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'king',
       color: 'white'
@@ -294,9 +294,9 @@ const whiteFiguresFieldsInit = {
   },
   '1F':{
     fieldName: '1F',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'bishop',
       color: 'white'
@@ -304,9 +304,9 @@ const whiteFiguresFieldsInit = {
   },
   '1G':{
     fieldName: '1G',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'knight',
       color: 'white'
@@ -314,9 +314,9 @@ const whiteFiguresFieldsInit = {
   },
   '1H':{
     fieldName: '1H',
-    isActive: false,
+    isSelected: false,
     isBusy: true,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: {
       type:'rook',
       color: 'white'
@@ -327,449 +327,449 @@ const whiteFiguresFieldsInit = {
 const fieldsInit = {
   '8A':{
     fieldName: '8A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '8B':{
     fieldName: '8B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '8C':{
     fieldName: '8C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '8D':{
     fieldName: '8D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '8E':{
     fieldName: '8E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '8F':{
     fieldName: '8F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '8G':{
     fieldName: '8G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '8H':{
     fieldName: '8H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7A':{
     fieldName: '7A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7B':{
     fieldName: '7B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7C':{
     fieldName: '7C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7D':{
     fieldName: '7D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7E':{
     fieldName: '7E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7F':{
     fieldName: '7F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7G':{
     fieldName: '7G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '7H':{
     fieldName: '7H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6A':{
     fieldName: '6A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6B':{
     fieldName: '6B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6C':{
     fieldName: '6C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6D':{
     fieldName: '6D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6E':{
     fieldName: '6E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6F':{
     fieldName: '6F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6G':{
     fieldName: '6G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '6H':{
     fieldName: '6H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5A':{
     fieldName: '5A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5B':{
     fieldName: '5B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5C':{
     fieldName: '5C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5D':{
     fieldName: '5D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5E':{
     fieldName: '5E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5F':{
     fieldName: '5F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5G':{
     fieldName: '5G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
     figure: null
   },
   '5H':{
     fieldName: '5H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4A':{
     fieldName: '4A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4B':{
     fieldName: '4B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4C':{
     fieldName: '4C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4D':{
     fieldName: '4D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4E':{
     fieldName: '4E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4F':{
     fieldName: '4F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4G':{
     fieldName: '4G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '4H':{
     fieldName: '4H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3A':{
     fieldName: '3A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3B':{
     fieldName: '3B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3C':{
     fieldName: '3C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3D':{
     fieldName: '3D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3E':{
     fieldName: '3E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3F':{
     fieldName: '3F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3G':{
     fieldName: '3G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '3H':{
     fieldName: '3H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2A':{
     fieldName: '2A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2B':{
     fieldName: '2B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2C':{
     fieldName: '2C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2D':{
     fieldName: '2D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2E':{
     fieldName: '2E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2F':{
     fieldName: '2F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2G':{
     fieldName: '2G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '2H':{
     fieldName: '2H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1A':{
     fieldName: '1A',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1B':{
     fieldName: '1B',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1C':{
     fieldName: '1C',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1D':{
     fieldName: '1D',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1E':{
     fieldName: '1E',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1F':{
     fieldName: '1F',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1G':{
     fieldName: '1G',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   },
   '1H':{
     fieldName: '1H',
-    isActive: false,
+    isSelected: false,
     isBusy: false,
-    availableToMove: false,
+    isAvailableToMove: false,
     figure: null
   }
 }
