@@ -23,12 +23,14 @@ const Board = () => {
     if (!selectedField){
       console.log('select field');
       gameManager.setPlayerSelectedField(field);
+      gameManager.setAvailableFieldsToMove()
       updateFieldsState();
     }
     else{
       console.log('change position');
       gameManager.changePlayerFigurePosition(field);
       gameManager.toggleOrder();
+      gameManager.resetAvailableFieldsToMove()
       updateFieldsState();
     }
    }

@@ -11,8 +11,12 @@
       background-color: #B7C0D8;
       border: 2px solid transparent;
     }
-    &--active{
+    &--selected{
       background-color: #7B61FF;
+    }
+
+    &--availableToMove{
+      background-color:  rgba(3, 160, 98, .5);
     }
 
     &:hover{

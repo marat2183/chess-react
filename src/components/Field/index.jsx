@@ -18,7 +18,9 @@ const Field = ({fieldNumber, field, onClickHandler}) => {
   const classNames = definingСlassName(fieldNumber);
 
   return (
-    <div onClick={() => onClickHandler(field)} className={`${classNames[0]} ${classNames[1]} ${field.isActive ? s['field--active'] : ''}`}>
+    <div 
+    onClick={() => onClickHandler(field)} 
+    className={`${classNames[0]} ${classNames[1]} ${field.isSelected ? s['field--selected'] : ''} ${field.isAvailableToMove ? s['field--availableToMove'] : ''}`}>
       {
         field.figure && 
         <img src={figuresImgs[field.figure.color][field.figure.type]} alt="" className={s["field__figure"]} />
