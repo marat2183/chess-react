@@ -23,13 +23,10 @@ const PlayerService = class {
   getSelectedFigureField = () => this.selectedFigureField;
 
   setSelectedFigureField = (field) => {
-    console.log(field)
     const fieldsList = Object.values(this.figuresFieldsObj)
-    console.log(fieldsList.includes(field))
     if (fieldsList.includes(field)){
       this.selectedFigureField = field;
       this.figuresFieldsObj[field.fieldName].isSelected = true;
-      console.log(this.figuresFieldsObj)
       return
     }
     throw new Error ('Its not your figure!')

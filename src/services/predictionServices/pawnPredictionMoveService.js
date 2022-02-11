@@ -1,5 +1,6 @@
 import PredictionMoveService from "./predictionMoveService";
 
+
 const PawnPredictionService  = class extends PredictionMoveService{
   
   getAvailableFieldsToMove = (figure, fieldName, fields) => {

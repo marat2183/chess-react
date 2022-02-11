@@ -6,7 +6,6 @@ const ValidationService = class{
 
   isFieldFree = (colNumber, rowNumber, fields) => {
     const fieldName = this.formatter.indexesToFieldName(colNumber, rowNumber)
-    console.log(fieldName)
     return !fields[fieldName].isBusy
   };
 

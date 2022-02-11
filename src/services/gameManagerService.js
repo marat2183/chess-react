@@ -37,8 +37,7 @@ const GameManagerService = class {
   changePlayerFigurePosition = (newField) => {
     const player = this.getPlayerByOrder();
     //validation move
-    const possibleFieldsToMove = this.getAvailableFieldsToMove();
-    console.log(possibleFieldsToMove);
+    const availableFieldsToMove = this.getAvailableFieldsToMove();
     player.changeFigurePosition(newField);
     player.resetSelectedFigureField();
   }
@@ -51,8 +50,11 @@ const GameManagerService = class {
     let fieldsToMove = []
     switch (selectedField.figure.type){
       case 'pawn':
-        console.log(this.pawnPrediction)
-        fieldsToMove = this.pawnPrediction.getAvailableFieldsToMove(selectedField.figure, selectedField.fieldName, fields);
+        fieldsToMove = this.pawnPrediction.getAvailableFieldsToMove(
+                                                                      selectedField.figure, 
+                                                                      selectedField.fieldName, 
+                                                                      fields
+                                                                    );
         break;
       default:
     }
