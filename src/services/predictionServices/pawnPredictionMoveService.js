@@ -13,7 +13,6 @@ const PawnPredictionMoveService  = class extends PredictionMoveService{
   isAvailableToBeatOpponentFigure = (col, row, figureColor, fields) => {
     return (
       this.validation.isIndexesValid(col, row) &&
-      !this.validation.isFieldFree(col, row, fields) && 
       this.validation.isFieldBusyByOpponentFigure(col, row, figureColor , fields)
     )
   }
