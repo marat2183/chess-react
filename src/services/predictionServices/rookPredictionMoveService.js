@@ -1,7 +1,7 @@
 import PredictionMoveService from "./predictionMoveService";
 
 
-const RookPredictionService  = class extends PredictionMoveService{
+const RookPredictionMoveService  = class extends PredictionMoveService{
 
   isAvailableToMove = (col, row, fields) => {
     return (
@@ -61,4 +61,4 @@ const RookPredictionService  = class extends PredictionMoveService{
   }
 }
 
-export default RookPredictionService
+export default RookPredictionMoveService

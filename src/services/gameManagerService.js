@@ -1,7 +1,7 @@
 import { blackFiguresFieldsInit, whiteFiguresFieldsInit, fieldsInit } from "fieldsData.js";
 import PlayerService from "./playerService";
-import PawnPredictionService  from "./predictionServices/pawnPredictionMoveService";
-import RookPredictionService from "./predictionServices/rookPredictionService";
+import PawnPredictionMoveService  from "./predictionServices/pawnPredictionMoveService";
+import RookPredictionMoveService from "./predictionServices/rookPredictionMoveService";
 import ValidationService from "./validationService";
 import FormatterService from "./formatterService";
 
@@ -120,8 +120,8 @@ const blackFigurePlayer = new PlayerService(blackFiguresFieldsInit);
 const formatter = new FormatterService();
 const validation = new ValidationService(formatter);
 
-const pawnPrediction = new PawnPredictionService(validation, formatter);
-const rookPrediction = new RookPredictionService(validation, formatter)
+const pawnPrediction = new PawnPredictionMoveService(validation, formatter);
+const rookPrediction = new RookPredictionMoveService(validation, formatter)
 
 const gameManager = new GameManagerService(blackFigurePlayer, whiteFigurePlayer, 'white', pawnPrediction, rookPrediction);
 

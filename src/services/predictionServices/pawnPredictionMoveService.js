@@ -1,7 +1,7 @@
 import PredictionMoveService from "./predictionMoveService";
 
 
-const PawnPredictionService  = class extends PredictionMoveService{
+const PawnPredictionMoveService  = class extends PredictionMoveService{
 
   isAvailableToMove = (col, row, fields) => {
     return (
@@ -30,7 +30,7 @@ const PawnPredictionService  = class extends PredictionMoveService{
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col, row + 1 * colorFactor))
     }
-    
+
     if (this.isAvailableToBeatOpponentFigure(
       col + 1, 
       row + 1 * colorFactor, 
@@ -58,4 +58,4 @@ const PawnPredictionService  = class extends PredictionMoveService{
   }
 }
 
-export default PawnPredictionService
+export default PawnPredictionMoveService
