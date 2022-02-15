@@ -6,6 +6,10 @@ const PlayerService = class {
 
   getFiguresFields = () => this.figuresFieldsObj;
 
+  removeFromFiguresFields = (fieldName) => {
+    delete this.figuresFieldsObj[fieldName]
+  }
+
   changeFigurePosition = (newField) => {
     const {fieldName, isBusy, figure} = this.selectedFigureField;
 
@@ -15,6 +19,7 @@ const PlayerService = class {
       fieldName: newField.fieldName,
       isSelected: false,
       isBusy,
+      isAvailableToMove: false,
       figure
     }
     return
