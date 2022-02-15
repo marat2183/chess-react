@@ -2,6 +2,21 @@ import PredictionMoveService from "./predictionMoveService";
 
 
 const PawnPredictionService  = class extends PredictionMoveService{
+
+  isAvailableToMove = (col, row, fields) => {
+    return (
+      this.validation.isIndexesValid(col, row) &&
+      this.validation.isFieldFree(col, row, fields)
+    )
+  }
+
+  isAvailableToBitOpponentFigure = (col, row, figureColor, fields) => {
+    return (
+      this.validation.isIndexesValid(col, row) &&
+      !this.validation.isFieldFree(col, row, fields) && 
+      this.validation.isFieldBusyByOpponentFigure(col, row, figureColor , fields)
+    )
+  }
   
   getAvailableFieldsToMove = (figure, fieldName, fields) => {
     let availableFieldsToMove = [];
@@ -11,33 +26,23 @@ const PawnPredictionService  = class extends PredictionMoveService{
     
     let [row, col] = this.formatter.fieldNameToIndexes(fieldName)
 
-    if ( 
-          this.validation.isIndexesValid(col, row + 1 * colorFactor) &&
-          this.validation.isFieldFree(col, row + 1 * colorFactor, fields)
-        )
+    if (this.isAvailableToMove(col, row + 1 * colorFactor, fields))
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col, row + 1 * colorFactor))
     }
-    if (
-        this.validation.isIndexesValid(col + 1 , row + 1 * colorFactor) &&
-        !this.validation.isFieldFree(col + 1, row + 1 * colorFactor, fields) && 
-        this.validation.isFieldBusyByOpponentFigure(col + 1, row + 1 * colorFactor, figure.color, fields)
-        )
+    if (this.isAvailableToBitOpponentFigure(col + 1, row + 1 * colorFactor, figure.color, fields))
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col + 1, row + 1 * colorFactor))
     }
-    if (
-        this.validation.isIndexesValid(col - 1, row + 1 * colorFactor) &&
-        !this.validation.isFieldFree(col - 1, row + 1 * colorFactor, fields) && 
-        this.validation.isFieldBusyByOpponentFigure(col - 1, row + 1 * colorFactor, figure.color, fields)
-        )
+    if (this.isAvailableToBitOpponentFigure(col - 1, row + 1 * colorFactor, figure.color, fields))
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col - 1, row + 1 * colorFactor))
     }
 
-    if (row === defaultRow && this.validation.isFieldFree(col, row + 2 * colorFactor, fields)){
+    if (row === defaultRow && this.isAvailableToMove(col, row + 2 * colorFactor, fields)){
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col, row + 2 * colorFactor))
     }
+
     return availableFieldsToMove
   }
 }
