@@ -10,7 +10,7 @@ const PawnPredictionService  = class extends PredictionMoveService{
     )
   }
 
-  isAvailableToBitOpponentFigure = (col, row, figureColor, fields) => {
+  isAvailableToBeatOpponentFigure = (col, row, figureColor, fields) => {
     return (
       this.validation.isIndexesValid(col, row) &&
       !this.validation.isFieldFree(col, row, fields) && 
@@ -30,11 +30,22 @@ const PawnPredictionService  = class extends PredictionMoveService{
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col, row + 1 * colorFactor))
     }
-    if (this.isAvailableToBitOpponentFigure(col + 1, row + 1 * colorFactor, figure.color, fields))
+    
+    if (this.isAvailableToBeatOpponentFigure(
+      col + 1, 
+      row + 1 * colorFactor, 
+      figure.color, 
+      fields
+    ))
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col + 1, row + 1 * colorFactor))
     }
-    if (this.isAvailableToBitOpponentFigure(col - 1, row + 1 * colorFactor, figure.color, fields))
+
+    if (this.isAvailableToBeatOpponentFigure(
+      col - 1, row + 1 * colorFactor, 
+      figure.color, 
+      fields
+    ))
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col - 1, row + 1 * colorFactor))
     }
