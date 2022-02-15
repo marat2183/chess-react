@@ -1,16 +1,18 @@
 import { blackFiguresFieldsInit, whiteFiguresFieldsInit, fieldsInit } from "fieldsData.js";
 import PlayerService from "./playerService";
 import PawnPredictionService  from "./predictionServices/pawnPredictionMoveService";
+import RookPredictionService from "./predictionServices/rookPredictionService";
 import ValidationService from "./validationService";
 import FormatterService from "./formatterService";
 
 
 const GameManagerService = class {
-  constructor(blackFigurePlayer, whiteFigurePlayer, orderColor, pawnPrediction){
+  constructor(blackFigurePlayer, whiteFigurePlayer, orderColor, pawnPrediction, rookPrediction){
     this.blackFigurePlayer = blackFigurePlayer;
     this.whiteFigurePlayer = whiteFigurePlayer;
     this.order = orderColor;
     this.pawnPrediction = pawnPrediction;
+    this.rookPrediction = rookPrediction
     this.availableFieldsToMove = null
   }
 
@@ -21,6 +23,11 @@ const GameManagerService = class {
   getPlayerByOrder = () => {
     const currentPlayer = this.order === 'white' ? this.whiteFigurePlayer : this.blackFigurePlayer;
     return currentPlayer;
+  }
+
+  getOpponentPlayer = () => {
+    const opponentPlayer = this.order === 'white' ? this.blackFigurePlayer : this.whiteFigurePlayer;
+    return opponentPlayer
   }
 
   getPlayerSelectedField = () => {
@@ -38,6 +45,10 @@ const GameManagerService = class {
     const player = this.getPlayerByOrder();
     //validation move
     const availableFieldsToMove = this.getAvailableFieldsToMove();
+    if (newField.figure?.color !== this.order){
+      const opponentPlayer = this.getOpponentPlayer();
+      opponentPlayer.removeFromFiguresFields(newField.fieldName)
+    }
     player.changeFigurePosition(newField);
     player.resetSelectedFigureField();
   }
@@ -47,23 +58,29 @@ const GameManagerService = class {
   setAvailableFieldsToMove = () => {
     const selectedField = this.getPlayerSelectedField();
     const fields = this.getAllFields();
-    let fieldsToMove = []
     switch (selectedField.figure.type){
       case 'pawn':
-        fieldsToMove = this.pawnPrediction.getAvailableFieldsToMove(
-                                                                      selectedField.figure, 
-                                                                      selectedField.fieldName, 
-                                                                      fields
-                                                                    );
+        this.availableFieldsToMove = this.pawnPrediction.getAvailableFieldsToMove(
+            selectedField.figure, 
+            selectedField.fieldName, 
+            fields
+          );
+        break
+      case 'rook':
+        this.availableFieldsToMove = this.rookPrediction.getAvailableFieldsToMove(
+          selectedField.figure, 
+          selectedField.fieldName, 
+          fields
+        );
         break;
       default:
     }
-    this.availableFieldsToMove = fieldsToMove;
+    
     return
   }
 
   resetAvailableFieldsToMove = () => {
-    this.availableFieldsToMove = null
+    this.availableFieldsToMove = null;
   };
 
   getFiguresFields = () => {
@@ -77,11 +94,22 @@ const GameManagerService = class {
     const defaultFields = JSON.parse(JSON.stringify(fieldsInit));
     const figuresFields = this.getFiguresFields();
     const availableFieldsToMove = this.getAvailableFieldsToMove();
-    const updatedFields = {...defaultFields, ...figuresFields}
+    
+    const allFields = {...defaultFields, ...figuresFields}
+
     if (availableFieldsToMove){
-      availableFieldsToMove.forEach(field => updatedFields[field].isAvailableToMove = true)
+      availableFieldsToMove.forEach(field => allFields[field].isAvailableToMove = true);
+      return allFields;
     }
-    return updatedFields;
+
+    const allFieldsList = Object.values(allFields);
+    allFieldsList.forEach(field => {
+      if (field.isAvailableToMove){
+        field.isAvailableToMove = false;
+      }
+    });
+
+    return allFields;
   }
 }
 
@@ -93,7 +121,8 @@ const formatter = new FormatterService();
 const validation = new ValidationService(formatter);
 
 const pawnPrediction = new PawnPredictionService(validation, formatter);
+const rookPrediction = new RookPredictionService(validation, formatter)
 
-const gameManager = new GameManagerService(blackFigurePlayer, whiteFigurePlayer, 'white', pawnPrediction);
+const gameManager = new GameManagerService(blackFigurePlayer, whiteFigurePlayer, 'white', pawnPrediction, rookPrediction);
 
 export default gameManager;
