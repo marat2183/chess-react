@@ -25,6 +25,20 @@ const ValidationService = class{
       (rowNum >= this.minRowNum && rowNum <= this.maxRowNum)
     )
   }
+
+  isAvailableToMove = (col, row, fields) => {
+    return (
+      this.isIndexesValid(col, row) &&
+      this.isFieldFree(col, row, fields)
+    )
+  }
+
+  isAvailableToBeatOpponentFigure = (col, row, figureColor, fields) => {
+    return (
+      this.isIndexesValid(col, row) &&
+      this.isFieldBusyByOpponentFigure(col, row, figureColor , fields)
+    )
+  }
 }
 
 export default ValidationService

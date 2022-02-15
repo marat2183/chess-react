@@ -11,12 +11,12 @@ const PawnPredictionMoveService  = class extends PredictionMoveService{
     
     let [row, col] = this.formatter.fieldNameToIndexes(fieldName)
 
-    if (this.isAvailableToMove(col, row + 1 * colorFactor, fields))
+    if (this.validation.isAvailableToMove(col, row + 1 * colorFactor, fields))
     {
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col, row + 1 * colorFactor))
     }
 
-    if (this.isAvailableToBeatOpponentFigure(
+    if (this.validation.isAvailableToBeatOpponentFigure(
       col + 1, 
       row + 1 * colorFactor, 
       figure.color, 
@@ -26,7 +26,7 @@ const PawnPredictionMoveService  = class extends PredictionMoveService{
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col + 1, row + 1 * colorFactor))
     }
 
-    if (this.isAvailableToBeatOpponentFigure(
+    if (this.validation.isAvailableToBeatOpponentFigure(
       col - 1, row + 1 * colorFactor, 
       figure.color, 
       fields
@@ -35,7 +35,7 @@ const PawnPredictionMoveService  = class extends PredictionMoveService{
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col - 1, row + 1 * colorFactor))
     }
 
-    if (row === defaultRow && this.isAvailableToMove(col, row + 2 * colorFactor, fields)){
+    if (row === defaultRow && this.validation.isAvailableToMove(col, row + 2 * colorFactor, fields)){
       availableFieldsToMove.push(this.formatter.indexesToFieldName(col, row + 2 * colorFactor))
     }
 
