@@ -27,7 +27,7 @@ const changeFigurePositionExceptionHandler = () => {
   // gameManager.resetAvailableFieldsToMove();
 }
 
-const Board = ({setGameError}) => {
+const Board = ({setGameError, setOrderHandler}) => {
 
   const fieldsObject = gameManager.getAllFields();
   const fieldsList = Object.values(fieldsObject)
@@ -47,6 +47,7 @@ const Board = ({setGameError}) => {
     })
 
     const selectedField = gameManager.getPlayerSelectedField();
+    
     if (!selectedField){
       try{
         setSelectedFieldHandler(field)
@@ -69,8 +70,8 @@ const Board = ({setGameError}) => {
     }
 
     try{
-      console.log('change')
-      changeFigurePositionHandler(field)
+      changeFigurePositionHandler(field);
+      setOrderHandler();
       updateFieldsState();
       return
     }
