@@ -539,6 +539,7 @@ const fieldsInit = {
     fieldName: '5G',
     isSelected: false,
     isBusy: false,
+    isAvailableToMove: false,
     figure: null
   },
   '5H':{
