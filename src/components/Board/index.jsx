@@ -6,11 +6,33 @@ import s from './index.module.scss'
 import gameManager from 'services/gameManagerService.js'
 
 
-const Board = () => {
+
+const setSelectedFieldHandler = (field) => {
+  gameManager.setPlayerSelectedField(field);
+  gameManager.setAvailableFieldsToMove();
+}
+
+const resetSelectedFieldHandler = () => {
+  gameManager.resetPlayerSelectedField();
+  gameManager.resetAvailableFieldsToMove();
+}
+
+const changeFigurePositionHandler = (field) => {
+  gameManager.changePlayerFigurePosition(field);
+  gameManager.toggleOrder();
+  gameManager.resetAvailableFieldsToMove();
+}
+
+const changeFigurePositionExceptionHandler = () => {
+  // gameManager.resetAvailableFieldsToMove();
+}
+
+const Board = ({setGameError}) => {
+
   const fieldsObject = gameManager.getAllFields();
   const fieldsList = Object.values(fieldsObject)
 
-  const [fields, setFields] = useState(fieldsList)
+  const [fields, setFields] = useState(fieldsList);
   
   const updateFieldsState = () => {
     const fieldsObject = gameManager.getAllFields();
@@ -19,22 +41,49 @@ const Board = () => {
   }
 
   const onFieldClickHandler = (field) => {
+    setGameError({
+      status: true,
+      message: ''
+    })
+
     const selectedField = gameManager.getPlayerSelectedField();
     if (!selectedField){
-      console.log('select field');
-      gameManager.setPlayerSelectedField(field);
-      gameManager.setAvailableFieldsToMove()
-      updateFieldsState();
+      try{
+        setSelectedFieldHandler(field)
+        updateFieldsState();
+        return
+      }
+      catch(e){
+        setGameError({
+          status: true,
+          message: e.message
+        })
+        return
+      }
     }
-    else{
-      console.log('change position');
-      gameManager.changePlayerFigurePosition(field);
-      gameManager.toggleOrder();
-      gameManager.resetAvailableFieldsToMove()
-      updateFieldsState();
-    }
-   }
 
+    if (selectedField.fieldName === field.fieldName){
+      resetSelectedFieldHandler()
+      updateFieldsState();
+      return
+    }
+
+    try{
+      console.log('change')
+      changeFigurePositionHandler(field)
+      updateFieldsState();
+      return
+    }
+    catch(e){
+      setGameError({
+        status: true,
+        message: e.message
+      })
+      changeFigurePositionExceptionHandler()
+      updateFieldsState();
+    }
+  }
+  
   return (
     <div className={s['board']}>
       {
