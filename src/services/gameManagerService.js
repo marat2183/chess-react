@@ -1,18 +1,37 @@
+import cloneDeep from "lodash/cloneDeep";
+
 import { blackFiguresFieldsInit, whiteFiguresFieldsInit, fieldsInit } from "fieldsData.js";
+
 import PlayerService from "./playerService";
 import PawnPredictionMoveService  from "./predictionServices/pawnPredictionMoveService";
 import RookPredictionMoveService from "./predictionServices/rookPredictionMoveService";
+import KnightPredictionMoveService from "./predictionServices/knightPredictionMoveService";
+import BishopPredictionMoveService from "./predictionServices/bishopPredictionMoveService";
+import KingPredictionMoveService from "./predictionServices/kingPredictionService";
 import ValidationService from "./validationService";
 import FormatterService from "./formatterService";
 
 
 const GameManagerService = class {
-  constructor(blackFigurePlayer, whiteFigurePlayer, orderColor, pawnPrediction, rookPrediction){
+  constructor(
+    blackFigurePlayer, 
+    whiteFigurePlayer, 
+    orderColor, 
+    pawnPrediction, 
+    rookPrediction, 
+    knightPrediction, 
+    bishopPrediction,
+    kingPrediction
+  )
+  {
     this.blackFigurePlayer = blackFigurePlayer;
     this.whiteFigurePlayer = whiteFigurePlayer;
     this.order = orderColor;
     this.pawnPrediction = pawnPrediction;
-    this.rookPrediction = rookPrediction
+    this.rookPrediction = rookPrediction;
+    this.knightPrediction = knightPrediction;
+    this.bishopPrediction = bishopPrediction;
+    this.kingPrediction = kingPrediction;
     this.availableFieldsToMove = null
   }
 
@@ -41,16 +60,26 @@ const GameManagerService = class {
     player.setSelectedFigureField(field);
   }
 
+  resetPlayerSelectedField = () => {
+    const player = this.getPlayerByOrder();
+    player.resetSelectedFigureField();
+  }
+
   changePlayerFigurePosition = (newField) => {
     const player = this.getPlayerByOrder();
     //validation move
     const availableFieldsToMove = this.getAvailableFieldsToMove();
-    if (newField.figure?.color !== this.order){
-      const opponentPlayer = this.getOpponentPlayer();
-      opponentPlayer.removeFromFiguresFields(newField.fieldName)
+    
+    if (availableFieldsToMove.includes(newField.fieldName)){
+      if (newField.figure?.color !== this.order){
+        const opponentPlayer = this.getOpponentPlayer();
+        opponentPlayer.removeFromFiguresFields(newField.fieldName)
+      }
+      player.changeFigurePosition(newField);
+      player.resetSelectedFigureField();
+      return
     }
-    player.changeFigurePosition(newField);
-    player.resetSelectedFigureField();
+    throw new Error("Incorrect Field to Move")
   }
 
   getAvailableFieldsToMove = () => this.availableFieldsToMove;
@@ -73,7 +102,42 @@ const GameManagerService = class {
           fields
         );
         break;
+      case 'knight':
+        this.availableFieldsToMove = this.knightPrediction.getAvailableFieldsToMove(
+          selectedField.figure, 
+          selectedField.fieldName, 
+          fields
+        );
+        break;
+      case 'bishop':
+        this.availableFieldsToMove = this.bishopPrediction.getAvailableFieldsToMove(
+          selectedField.figure, 
+          selectedField.fieldName, 
+          fields
+        );
+        break;
+      case 'queen':
+        const rookFields = this.rookPrediction.getAvailableFieldsToMove(
+          selectedField.figure, 
+          selectedField.fieldName, 
+          fields
+        );
+        const bishopFields = this.bishopPrediction.getAvailableFieldsToMove(
+          selectedField.figure, 
+          selectedField.fieldName, 
+          fields
+        );
+        this.availableFieldsToMove = [...rookFields, ...bishopFields]
+        break;
+      case 'king':
+        this.availableFieldsToMove = this.kingPrediction.getAvailableFieldsToMove(
+          selectedField.figure, 
+          selectedField.fieldName, 
+          fields
+        );
+        break;
       default:
+        break;
     }
     
     return
@@ -90,8 +154,7 @@ const GameManagerService = class {
   }
 
   getAllFields = () => {
-    //JSON.parse/JSON.stringify to deep clone
-    const defaultFields = JSON.parse(JSON.stringify(fieldsInit));
+    const defaultFields = cloneDeep(fieldsInit);
     const figuresFields = this.getFiguresFields();
     const availableFieldsToMove = this.getAvailableFieldsToMove();
     
@@ -121,8 +184,20 @@ const formatter = new FormatterService();
 const validation = new ValidationService(formatter);
 
 const pawnPrediction = new PawnPredictionMoveService(validation, formatter);
-const rookPrediction = new RookPredictionMoveService(validation, formatter)
+const rookPrediction = new RookPredictionMoveService(validation, formatter);
+const knightPrediction = new KnightPredictionMoveService(validation, formatter);
+const bishopPrediction = new BishopPredictionMoveService(validation, formatter);
+const kingPrediction = new KingPredictionMoveService(validation, formatter)
 
-const gameManager = new GameManagerService(blackFigurePlayer, whiteFigurePlayer, 'white', pawnPrediction, rookPrediction);
+const gameManager = new GameManagerService(
+  blackFigurePlayer, 
+  whiteFigurePlayer, 
+  'white', 
+  pawnPrediction, 
+  rookPrediction, 
+  knightPrediction,
+  bishopPrediction,
+  kingPrediction
+);
 
 export default gameManager;

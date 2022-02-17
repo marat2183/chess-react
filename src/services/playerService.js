@@ -38,6 +38,13 @@ const PlayerService = class {
   }
 
   resetSelectedFigureField = () => {
+    const key = this.selectedFigureField.fieldName;
+    if (Object.keys(this.figuresFieldsObj).includes(key)){
+      this.figuresFieldsObj[key] = {
+        ...this.figuresFieldsObj[key],
+        isSelected: false,
+      }
+    }
     this.selectedFigureField = null;
     return
   }
