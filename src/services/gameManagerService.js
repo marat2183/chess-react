@@ -1,203 +1,137 @@
-import cloneDeep from "lodash/cloneDeep";
-
-import { blackFiguresFieldsInit, whiteFiguresFieldsInit, fieldsInit } from "fieldsData.js";
+import { whiteFigures, blackFigures } from "fieldsData.js";
 
 import PlayerService from "./playerService";
-import PawnPredictionMoveService  from "./predictionServices/pawnPredictionMoveService";
-import RookPredictionMoveService from "./predictionServices/rookPredictionMoveService";
-import KnightPredictionMoveService from "./predictionServices/knightPredictionMoveService";
-import BishopPredictionMoveService from "./predictionServices/bishopPredictionMoveService";
-import KingPredictionMoveService from "./predictionServices/kingPredictionService";
-import ValidationService from "./validationService";
+
+import ValidationService from "./validationServices/validationService";
 import FormatterService from "./formatterService";
+import KnightValidationService from "./validationServices/knightValidationService";
+import QueenValidationService from "./validationServices/queenValidationService";
+import BishopValidationService from "./validationServices/bishopValidationService";
+import RookValidationService from "./validationServices/rookValidationService";
+import PawnValidationService from "./validationServices/pawnValidationService";
+import KingValidationService from "./validationServices/kingValidationService";
+
+import OrderManagerService from "./orderManagerService";
+import BoardManagerService from "./boardManagerService";
+import MovingFiguresManagerService from "./movingFiguresManagerService";
 
 
 const GameManagerService = class {
   constructor(
-    blackFigurePlayer, 
-    whiteFigurePlayer, 
-    orderColor, 
-    pawnPrediction, 
-    rookPrediction, 
-    knightPrediction, 
-    bishopPrediction,
-    kingPrediction
+    movingFiguresManager,
+    orderManager,
+    boardManager
   )
   {
-    this.blackFigurePlayer = blackFigurePlayer;
-    this.whiteFigurePlayer = whiteFigurePlayer;
-    this.order = orderColor;
-    this.pawnPrediction = pawnPrediction;
-    this.rookPrediction = rookPrediction;
-    this.knightPrediction = knightPrediction;
-    this.bishopPrediction = bishopPrediction;
-    this.kingPrediction = kingPrediction;
-    this.availableFieldsToMove = null
+    this.movingFiguresManager = movingFiguresManager;
+    this.orderManager = orderManager;
+    this.boardManager = boardManager;
+    this.availableFieldsToMove = [];
+    this.playerSelectedField = null;
   }
 
-  toggleOrder = () => {
-    this.order = this.order === 'white' ? 'black' : 'white';
-  }
-
-  getPlayerByOrder = () => {
-    const currentPlayer = this.order === 'white' ? this.whiteFigurePlayer : this.blackFigurePlayer;
-    return currentPlayer;
-  }
-
-  getOpponentPlayer = () => {
-    const opponentPlayer = this.order === 'white' ? this.blackFigurePlayer : this.whiteFigurePlayer;
-    return opponentPlayer
-  }
-
+  toggleOrder = () => this.orderManager.toggleOrder()
+  
   getPlayerSelectedField = () => {
-    const player = this.getPlayerByOrder();
-    const field = player.getSelectedFigureField();
+    const player = this.orderManager.getPlayerByOrder();
+    const field = player.getSelectedField();
     return field;
   }
 
   setPlayerSelectedField = (field) => {
-    const player = this.getPlayerByOrder();
-    player.setSelectedFigureField(field);
+    const orderColor = this.orderManager.getOrderColor()
+    const player = this.orderManager.getPlayerByOrder();
+    if (field.figure && field.figure.color === orderColor){
+      player.setSelectedField(field);
+      this.playerSelectedField = field;
+    }
   }
 
   resetPlayerSelectedField = () => {
-    const player = this.getPlayerByOrder();
-    player.resetSelectedFigureField();
-  }
-
-  changePlayerFigurePosition = (newField) => {
-    const player = this.getPlayerByOrder();
-    //validation move
-    const availableFieldsToMove = this.getAvailableFieldsToMove();
-    
-    if (availableFieldsToMove.includes(newField.fieldName)){
-      if (newField.figure?.color !== this.order){
-        const opponentPlayer = this.getOpponentPlayer();
-        opponentPlayer.removeFromFiguresFields(newField.fieldName)
-      }
-      player.changeFigurePosition(newField);
-      player.resetSelectedFigureField();
-      return
-    }
-    throw new Error("Incorrect Field to Move")
+    const player = this.orderManager.getPlayerByOrder();
+    player.resetSelectedField();
+    this.playerSelectedField = null;
   }
 
   getAvailableFieldsToMove = () => this.availableFieldsToMove;
 
   setAvailableFieldsToMove = () => {
-    const selectedField = this.getPlayerSelectedField();
-    const fields = this.getAllFields();
-    switch (selectedField.figure.type){
-      case 'pawn':
-        this.availableFieldsToMove = this.pawnPrediction.getAvailableFieldsToMove(
-            selectedField.figure, 
-            selectedField.fieldName, 
-            fields
-          );
-        break
-      case 'rook':
-        this.availableFieldsToMove = this.rookPrediction.getAvailableFieldsToMove(
-          selectedField.figure, 
-          selectedField.fieldName, 
-          fields
-        );
-        break;
-      case 'knight':
-        this.availableFieldsToMove = this.knightPrediction.getAvailableFieldsToMove(
-          selectedField.figure, 
-          selectedField.fieldName, 
-          fields
-        );
-        break;
-      case 'bishop':
-        this.availableFieldsToMove = this.bishopPrediction.getAvailableFieldsToMove(
-          selectedField.figure, 
-          selectedField.fieldName, 
-          fields
-        );
-        break;
-      case 'queen':
-        const rookFields = this.rookPrediction.getAvailableFieldsToMove(
-          selectedField.figure, 
-          selectedField.fieldName, 
-          fields
-        );
-        const bishopFields = this.bishopPrediction.getAvailableFieldsToMove(
-          selectedField.figure, 
-          selectedField.fieldName, 
-          fields
-        );
-        this.availableFieldsToMove = [...rookFields, ...bishopFields]
-        break;
-      case 'king':
-        this.availableFieldsToMove = this.kingPrediction.getAvailableFieldsToMove(
-          selectedField.figure, 
-          selectedField.fieldName, 
-          fields
-        );
-        break;
-      default:
-        break;
+    const player = this.orderManager.getPlayerByOrder();
+    const fields = this.getBoardFields()
+    const availableFieldsToMove = this.movingFiguresManager.getAllValidPlayerMoves(fields, player.selectedField.figure.color);
+    if (Object.values(availableFieldsToMove).flat().length === 0) {
+      console.log('end game');
+      this.resetAvailableFieldsToMove()
+      return
     }
-    
-    return
+    this.availableFieldsToMove = availableFieldsToMove[player.selectedField.figure.id.toString()];
   }
 
   resetAvailableFieldsToMove = () => {
-    this.availableFieldsToMove = null;
-  };
-
-  getFiguresFields = () => {
-    const whiteFigures = this.whiteFigurePlayer.getFiguresFields();
-    const blackFigures = this.blackFigurePlayer.getFiguresFields();
-    return {...whiteFigures, ...blackFigures}
+    this.availableFieldsToMove = []
   }
 
-  getAllFields = () => {
-    const defaultFields = cloneDeep(fieldsInit);
-    const figuresFields = this.getFiguresFields();
-    const availableFieldsToMove = this.getAvailableFieldsToMove();
+  changePlayerFigurePosition = (newField) => {
+    const player = this.orderManager.getPlayerByOrder();
+    player.updateFigureMoveHistory(player.selectedField.figure.id)
+    this.boardManager.updateFields(player.selectedField, newField);
+    return
     
-    const allFields = {...defaultFields, ...figuresFields}
+  }
 
-    if (availableFieldsToMove){
-      availableFieldsToMove.forEach(field => allFields[field].isAvailableToMove = true);
-      return allFields;
-    }
+  getBoardFields = () => this.boardManager.getFields()
 
-    const allFieldsList = Object.values(allFields);
-    allFieldsList.forEach(field => {
-      if (field.isAvailableToMove){
-        field.isAvailableToMove = false;
-      }
-    });
-
-    return allFields;
+  getAllFields = () => {
+    const boardFields = this.getBoardFields();
+    const playerSelectedField = this.playerSelectedField;
+    const availableFieldsToMove = this.availableFieldsToMove
+    return {boardFields, playerSelectedField, availableFieldsToMove}
   }
 }
 
+const START_FIGURE_COLOR = 'white'
 
-const whiteFigurePlayer = new PlayerService(whiteFiguresFieldsInit);
-const blackFigurePlayer = new PlayerService(blackFiguresFieldsInit);
+
+const whiteFigurePlayer = new PlayerService(whiteFigures);
+const blackFigurePlayer = new PlayerService(blackFigures);
 
 const formatter = new FormatterService();
 const validation = new ValidationService(formatter);
 
-const pawnPrediction = new PawnPredictionMoveService(validation, formatter);
-const rookPrediction = new RookPredictionMoveService(validation, formatter);
-const knightPrediction = new KnightPredictionMoveService(validation, formatter);
-const bishopPrediction = new BishopPredictionMoveService(validation, formatter);
-const kingPrediction = new KingPredictionMoveService(validation, formatter)
+
+
+const knightValidation = new KnightValidationService(formatter);
+const queenValidation = new QueenValidationService(formatter);
+const bishopValidation = new BishopValidationService(formatter);
+const rookValidation = new RookValidationService(formatter);
+const pawnValidation = new PawnValidationService(formatter);
+const kingValidation = new KingValidationService(formatter);
+
+
+const orderManager = new OrderManagerService(
+  whiteFigurePlayer,
+  blackFigurePlayer, 
+  START_FIGURE_COLOR
+)
+
+const boardManager = new BoardManagerService();
+
+const movingFiguresManager = new MovingFiguresManagerService(
+  orderManager,
+  validation,
+  formatter,
+  knightValidation,
+  queenValidation,
+  bishopValidation,
+  rookValidation,
+  pawnValidation,
+  kingValidation
+)
 
 const gameManager = new GameManagerService(
-  blackFigurePlayer, 
-  whiteFigurePlayer, 
-  'white', 
-  pawnPrediction, 
-  rookPrediction, 
-  knightPrediction,
-  bishopPrediction,
-  kingPrediction
+  movingFiguresManager,
+  orderManager,
+  boardManager
 );
 
 export default gameManager;

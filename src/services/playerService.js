@@ -1,51 +1,28 @@
 const PlayerService = class {
   constructor(figuresFields){
-    this.figuresFieldsObj = figuresFields;
-    this.selectedFigureField = null;
+    this.figures = figuresFields;
+    this.selectedField = null;
+    this.figureMoveHistory = [];
   }
 
-  getFiguresFields = () => this.figuresFieldsObj;
+  getFigures = () => this.figures;
 
-  removeFromFiguresFields = (fieldName) => {
+  removeFromFigures = (fieldName) => {
     delete this.figuresFieldsObj[fieldName]
   }
 
-  changeFigurePosition = (newField) => {
-    const {fieldName, isBusy, figure} = this.selectedFigureField;
-
-    delete this.figuresFieldsObj[fieldName]
-
-    this.figuresFieldsObj[newField.fieldName] = {
-      fieldName: newField.fieldName,
-      isSelected: false,
-      isBusy,
-      isAvailableToMove: false,
-      figure
-    }
-    return
+  updateFigureMoveHistory = (figureId) => {
+    this.figureMoveHistory = [...this.figureMoveHistory, figureId]
   }
 
-  getSelectedFigureField = () => this.selectedFigureField;
+  getSelectedField = () => this.selectedField;
 
-  setSelectedFigureField = (field) => {
-    const fieldsList = Object.values(this.figuresFieldsObj)
-    if (fieldsList.includes(field)){
-      this.selectedFigureField = field;
-      this.figuresFieldsObj[field.fieldName].isSelected = true;
-      return
-    }
-    throw new Error ('Its not your figure!')
+  setSelectedField = (field) => {
+    this.selectedField = field;
   }
 
-  resetSelectedFigureField = () => {
-    const key = this.selectedFigureField.fieldName;
-    if (Object.keys(this.figuresFieldsObj).includes(key)){
-      this.figuresFieldsObj[key] = {
-        ...this.figuresFieldsObj[key],
-        isSelected: false,
-      }
-    }
-    this.selectedFigureField = null;
+  resetSelectedField = () => {
+    this.selectedField = null;
     return
   }
 }

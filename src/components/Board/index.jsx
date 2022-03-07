@@ -6,38 +6,19 @@ import s from './index.module.scss'
 import gameManager from 'services/gameManagerService.js'
 
 
-
-const setSelectedFieldHandler = (field) => {
-  gameManager.setPlayerSelectedField(field);
-  gameManager.setAvailableFieldsToMove();
-}
-
-const resetSelectedFieldHandler = () => {
-  gameManager.resetPlayerSelectedField();
-  gameManager.resetAvailableFieldsToMove();
-}
-
-const changeFigurePositionHandler = (field) => {
-  gameManager.changePlayerFigurePosition(field);
-  gameManager.toggleOrder();
-  gameManager.resetAvailableFieldsToMove();
-}
-
-const changeFigurePositionExceptionHandler = () => {
-  // gameManager.resetAvailableFieldsToMove();
-}
-
 const Board = ({setGameError, setOrderHandler}) => {
 
-  const fieldsObject = gameManager.getAllFields();
-  const fieldsList = Object.values(fieldsObject)
+  const fieldsInit = gameManager.getAllFields();
 
-  const [fields, setFields] = useState(fieldsList);
+  const [fields, setFields] = useState(fieldsInit['boardFields']);
+  const [playerSelectedField, setPlayerSelectedField] = useState(null);
+  const [availableFieldsToMove, setAvailableFieldsToMove] = useState([])
   
   const updateFieldsState = () => {
-    const fieldsObject = gameManager.getAllFields();
-    const fieldsList = Object.values(fieldsObject)
-    setFields(fieldsList)
+    const {boardFields, playerSelectedField, availableFieldsToMove} = gameManager.getAllFields()
+    setFields(boardFields);
+    setPlayerSelectedField(playerSelectedField)
+    setAvailableFieldsToMove(availableFieldsToMove.map(field => field.fieldName))
   }
 
   const onFieldClickHandler = (field) => {
@@ -47,41 +28,36 @@ const Board = ({setGameError, setOrderHandler}) => {
     })
 
     const selectedField = gameManager.getPlayerSelectedField();
-    
+  
     if (!selectedField){
-      try{
-        setSelectedFieldHandler(field)
-        updateFieldsState();
-        return
-      }
-      catch(e){
-        setGameError({
-          status: true,
-          message: e.message
-        })
-        return
-      }
-    }
+      gameManager.setPlayerSelectedField(field);
+      gameManager.setAvailableFieldsToMove();
+      updateFieldsState()
+      return
 
+    }
     if (selectedField.fieldName === field.fieldName){
-      resetSelectedFieldHandler()
-      updateFieldsState();
+      gameManager.resetPlayerSelectedField();
+      gameManager.resetAvailableFieldsToMove();
+      updateFieldsState()
       return
     }
 
     try{
-      changeFigurePositionHandler(field);
-      setOrderHandler();
+      gameManager.changePlayerFigurePosition(field);
+      gameManager.resetAvailableFieldsToMove();
+      gameManager.resetPlayerSelectedField();
       updateFieldsState();
+      gameManager.toggleOrder();
       return
     }
     catch(e){
-      setGameError({
-        status: true,
-        message: e.message
-      })
-      changeFigurePositionExceptionHandler()
-      updateFieldsState();
+      // setGameError({
+      //   status: true,
+      //   message: e.message
+      // })
+      // changeFigurePositionExceptionHandler()
+      // updateFieldsState();
     }
   }
   
@@ -90,7 +66,9 @@ const Board = ({setGameError, setOrderHandler}) => {
       {
         fields.map((currentField, index) => {
           return <Field key={currentField.fieldName} 
-                        field={currentField} 
+                        field={currentField}
+                        playerSelectedField = {playerSelectedField}
+                        availableFieldsToMove = {availableFieldsToMove}
                         fieldNumber={index}
                         onClickHandler={onFieldClickHandler} 
                   />
