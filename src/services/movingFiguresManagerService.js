@@ -29,7 +29,6 @@ const MovingFiguresManagerService = class {
     return filteredList[0]
   };
 
-
   getFieldsAfterMove = (selectedField, fieldToMove, fields) => {
     const updatedFields = fields.map(field => {
 
@@ -108,7 +107,14 @@ const MovingFiguresManagerService = class {
   isValidFigureMove = (selectedField, fieldToMove, fields, figureColor) => {
     switch (selectedField.figure.type){
       case 'pawn':
-        return this.pawnValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName, fields, figureColor)
+        const opponentPlayer = this.orderManager.getOpponentPlayer();
+        return this.pawnValidation.isMoveValid(
+          selectedField.fieldName, 
+          fieldToMove.fieldName, 
+          fields, 
+          figureColor,
+          opponentPlayer.figureMoveHistory
+          )
       case 'rook':
         return this.rookValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName, fields, figureColor) 
       case 'knight':
@@ -118,7 +124,26 @@ const MovingFiguresManagerService = class {
       case 'queen':
         return  this.queenValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName, fields, figureColor)
       case 'king':
-       return this.kingValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName)
+        const orderColor = this.orderManager.getOrderColor();
+        const player = this.orderManager.getPlayerByOrder();
+        if (figureColor === orderColor){
+          const opponentPossibleMoves = this.getAllOpponentPossibleMoves(fields)
+          return this.kingValidation.isMoveValid(
+            selectedField.fieldName, 
+            fieldToMove.fieldName, 
+            fields, figureColor, 
+            orderColor,
+            player.figureMoveHistory,
+            opponentPossibleMoves)
+        }
+        return this.kingValidation.isMoveValid(
+          selectedField.fieldName, 
+          fieldToMove.fieldName, 
+          fields, 
+          figureColor, 
+          orderColor,
+          player.figureMoveHistory,
+          )
       default:
         break;
     }
