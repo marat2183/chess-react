@@ -138,7 +138,8 @@ const MovingFiguresManagerService = class {
             fields, figureColor, 
             orderColor,
             player.figureMoveHistory,
-            opponentPossibleMoves)
+            opponentPossibleMoves
+          )
         }
         return this.kingValidation.isMoveValid(
           selectedField.fieldName, 

@@ -4,6 +4,7 @@ import PlayerService from "./playerService";
 
 import ValidationService from "./validationServices/validationService";
 import FormatterService from "./formatterService";
+import MoveValidationService from "./validationServices/moveValidationService";
 import KnightValidationService from "./validationServices/knightValidationService";
 import QueenValidationService from "./validationServices/queenValidationService";
 import BishopValidationService from "./validationServices/bishopValidationService";
@@ -74,7 +75,7 @@ const GameManagerService = class {
   changePlayerFigurePosition = (newField) => {
     const player = this.orderManager.getPlayerByOrder();
     player.updateFigureMoveHistory(player.selectedField.figure.id)
-    this.boardManager.updateFields(player.selectedField, newField);
+    this.boardManager.updateFieldsHandler(player.selectedField, newField);
     return
     
   }
@@ -99,7 +100,7 @@ const formatter = new FormatterService();
 const validation = new ValidationService(formatter);
 
 
-
+const moveValidation = new MoveValidationService(formatter)
 const knightValidation = new KnightValidationService(formatter);
 const queenValidation = new QueenValidationService(formatter);
 const bishopValidation = new BishopValidationService(formatter);
@@ -114,7 +115,7 @@ const orderManager = new OrderManagerService(
   START_FIGURE_COLOR
 )
 
-const boardManager = new BoardManagerService();
+const boardManager = new BoardManagerService(formatter, moveValidation);
 
 const movingFiguresManager = new MovingFiguresManagerService(
   orderManager,
