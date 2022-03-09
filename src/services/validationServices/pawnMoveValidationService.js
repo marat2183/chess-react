@@ -1,6 +1,6 @@
 import ValidationService from "./validationService"
 
-const PawnValidationService = class extends ValidationService {
+const PawnMoveValidationService = class extends ValidationService {
 
   сanTakeOnThePass = (fromRow, fromCol, toRow, toCol, fields, figureColor, colorFactor, opponentMoveHistory) => {
 
@@ -134,4 +134,4 @@ const PawnValidationService = class extends ValidationService {
   }
 }
 
-export default PawnValidationService
+export default PawnMoveValidationService

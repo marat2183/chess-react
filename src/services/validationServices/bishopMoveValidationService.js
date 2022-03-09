@@ -1,6 +1,6 @@
 import ValidationService from "./validationService"
 
-const QueenValidationService = class extends ValidationService {
+const BishopMoveValidationService = class extends ValidationService {
 
   isMoveValid = (fieldFrom, fieldTo, fields, figureColor) => {
     const [fromRow, fromCol] = this.formatter.fieldNameToIndexes(fieldFrom);
@@ -8,6 +8,10 @@ const QueenValidationService = class extends ValidationService {
 
     const rowStep = this.singOfDelta(toRow, fromRow);
     const colStep = this.singOfDelta(toCol, fromCol);
+
+    if (rowStep === 0 || colStep === 0){
+      return false
+    }
 
     let rn = fromRow + rowStep;
     let cn = fromCol + colStep;
@@ -33,4 +37,4 @@ const QueenValidationService = class extends ValidationService {
   }
 }
 
-export default QueenValidationService
+export default BishopMoveValidationService

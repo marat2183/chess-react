@@ -5,12 +5,12 @@ import PlayerService from "./playerService";
 import ValidationService from "./validationServices/validationService";
 import FormatterService from "./formatterService";
 import MoveTypeValidationService from "./validationServices/moveTypeValidationService";
-import KnightValidationService from "./validationServices/knightValidationService";
-import QueenValidationService from "./validationServices/queenValidationService";
-import BishopValidationService from "./validationServices/bishopValidationService";
-import RookValidationService from "./validationServices/rookValidationService";
-import PawnValidationService from "./validationServices/pawnValidationService";
-import KingValidationService from "./validationServices/kingValidationService";
+import KnightMoveValidationService from "./validationServices/knightMoveValidationService";
+import QueenMoveValidationService from "./validationServices/queenMoveValidationService";
+import BishopMoveValidationService from "./validationServices/bishopMoveValidationService";
+import RookMoveValidationService from "./validationServices/rookMoveValidationService";
+import PawnMoveValidationService from "./validationServices/pawnMoveValidationService";
+import KingMoveValidationService from "./validationServices/kingMoveValidationService";
 
 import OrderManagerService from "./orderManagerService";
 import BoardManagerService from "./boardManagerService";
@@ -101,12 +101,12 @@ const validation = new ValidationService(formatter);
 
 
 const moveTypeValidation = new MoveTypeValidationService(formatter)
-const knightValidation = new KnightValidationService(formatter);
-const queenValidation = new QueenValidationService(formatter);
-const bishopValidation = new BishopValidationService(formatter);
-const rookValidation = new RookValidationService(formatter);
-const pawnValidation = new PawnValidationService(formatter);
-const kingValidation = new KingValidationService(formatter);
+const knightValidation = new KnightMoveValidationService(formatter);
+const queenValidation = new QueenMoveValidationService(formatter);
+const bishopValidation = new BishopMoveValidationService(formatter);
+const rookValidation = new RookMoveValidationService(formatter);
+const pawnValidation = new PawnMoveValidationService(formatter);
+const kingValidation = new KingMoveValidationService(formatter);
 
 
 const orderManager = new OrderManagerService(

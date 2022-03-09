@@ -1,15 +1,16 @@
 import ValidationService from "./validationService"
 
-const BishopValidationService = class extends ValidationService {
+const RookMoveValidationService = class extends ValidationService {
 
   isMoveValid = (fieldFrom, fieldTo, fields, figureColor) => {
+
     const [fromRow, fromCol] = this.formatter.fieldNameToIndexes(fieldFrom);
     const [toRow, toCol] = this.formatter.fieldNameToIndexes(fieldTo);
 
     const rowStep = this.singOfDelta(toRow, fromRow);
     const colStep = this.singOfDelta(toCol, fromCol);
-
-    if (rowStep === 0 || colStep === 0){
+    
+    if (rowStep !== 0 && colStep !== 0){
       return false
     }
 
@@ -17,7 +18,7 @@ const BishopValidationService = class extends ValidationService {
     let cn = fromCol + colStep;
 
     while(this.isIndexesValid(rn, cn)){
-      if (!this.isFieldAvailableToMove(rn ,cn, fields, figureColor)){
+      if (!this.isFieldAvailableToMove(rn, cn, fields, figureColor)){
         return false;
       }
 
@@ -37,4 +38,4 @@ const BishopValidationService = class extends ValidationService {
   }
 }
 
-export default BishopValidationService
+export default RookMoveValidationService

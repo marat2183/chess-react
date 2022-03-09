@@ -1,6 +1,6 @@
 import ValidationService from "./validationService"
 
-const KnightValidationService = class extends ValidationService {
+const KnightMoveValidationService = class extends ValidationService {
 
   isMoveValid = (fieldFrom, fieldTo) => {
     const [fromRow, fromCol] = this.formatter.fieldNameToIndexes(fieldFrom);
@@ -18,4 +18,4 @@ const KnightValidationService = class extends ValidationService {
   }
 }
 
-export default KnightValidationService
+export default KnightMoveValidationService

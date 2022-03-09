@@ -1,6 +1,6 @@
 import ValidationService from "./validationService"
 
-const KingValidationService = class extends ValidationService {
+const KingMoveValidationService = class extends ValidationService {
 
   isRookInField = (row, col, fields, figureColor) => {
     const fieldIndex = this.formatter.getFieldIndex(row, col)
@@ -179,4 +179,4 @@ const KingValidationService = class extends ValidationService {
   }
 }
 
-export default KingValidationService
+export default KingMoveValidationService
