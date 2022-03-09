@@ -10,13 +10,13 @@ const FormatterService = class {
     return [Number(row), col.charCodeAt() - 64]
   }
 
-  indexesToFieldName = (colNumber, rowNumber) => {
+  indexesToFieldName = (rowNumber, colNumber) => {
     const row = rowNumber.toString();
     const col = String.fromCharCode(colNumber + 64)
     return row + col
   }
 
-  getFieldIndex(colNumber, rowNumber){
+  getFieldIndex(rowNumber, colNumber){
     const fieldIndex = 8 * (8 - rowNumber) + colNumber - 1;
     return fieldIndex
   }

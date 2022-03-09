@@ -101,7 +101,7 @@ const MovingFiguresManagerService = class {
 
   isFieldAvailableToMove = (selectedField, fieldToMove, fields) => {
     const [row, col] = this.formatter.fieldNameToIndexes(fieldToMove.fieldName)
-    return this.validation.isFieldAvailableToMove(col, row, fields, selectedField.figure.color)
+    return this.validation.isFieldAvailableToMove(row, col, fields, selectedField.figure.color)
   }
 
   isValidFigureMove = (selectedField, fieldToMove, fields, figureColor) => {
@@ -116,7 +116,11 @@ const MovingFiguresManagerService = class {
           opponentPlayer.figureMoveHistory
           )
       case 'rook':
-        return this.rookValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName, fields, figureColor) 
+        return this.rookValidation.isMoveValid(
+          selectedField.fieldName, 
+          fieldToMove.fieldName, 
+          fields, 
+          figureColor) 
       case 'knight':
         return this.knightValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName)
       case 'bishop':

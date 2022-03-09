@@ -23,7 +23,6 @@ const PlayerService = class {
 
   resetSelectedField = () => {
     this.selectedField = null;
-    return
   }
 }
 

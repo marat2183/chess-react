@@ -17,7 +17,7 @@ const BishopValidationService = class extends ValidationService {
     let cn = fromCol + colStep;
 
     while(this.isIndexesValid(rn, cn)){
-      if (!this.isFieldAvailableToMove(cn, rn, fields, figureColor)){
+      if (!this.isFieldAvailableToMove(rn ,cn, fields, figureColor)){
         return false;
       }
 
@@ -25,7 +25,7 @@ const BishopValidationService = class extends ValidationService {
         return true
       }
 
-      if (this.isFieldBusyByOpponentFigure(cn, rn, fields, figureColor)){
+      if (this.isFieldBusyByOpponentFigure(rn, cn, fields, figureColor)){
         return false;
       }
 

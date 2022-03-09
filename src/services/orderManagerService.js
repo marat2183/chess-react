@@ -16,8 +16,8 @@ const OrderManagerService = class {
   }
 
   getPlayerByOrder = () => {
-    const currentPlayer = this.orderColor === 'white' ? this.whiteFigurePlayer : this.blackFigurePlayer;
-    return currentPlayer;
+    const player = this.orderColor === 'white' ? this.whiteFigurePlayer : this.blackFigurePlayer;
+    return player
   }
 
   getOpponentPlayer = () => {

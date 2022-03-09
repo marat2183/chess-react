@@ -8,8 +8,12 @@ const BoardManagerService = class {
 
   getFields = () => this.fields;
 
-  setFields = (fields) => {
-    this.fields = fields;
+  castlingUpdateFields = () => {
+      
+  }
+
+  takeOnThePassUpdateFields = () => {
+    
   }
 
   updateFields = (currentField, newField) => {
@@ -27,11 +31,10 @@ const BoardManagerService = class {
           figure: null
         }
       }
-
       return field
     })
 
-    this.setFields(updatedFields)
+    this.fields = updatedFields
   }
 }
 

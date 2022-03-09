@@ -3,12 +3,12 @@ import ValidationService from "./validationService"
 const KingValidationService = class extends ValidationService {
 
   isRookInField = (row, col, fields, figureColor) => {
-    const fieldIndex = this.formatter.getFieldIndex(col, row)
+    const fieldIndex = this.formatter.getFieldIndex(row, col)
     return fields[fieldIndex].figure?.type === 'rook' && fields[fieldIndex].figure?.color === figureColor
   }
 
   isFirstMove = (row, col, fields, moveHistory) => {
-    const fieldIndex = this.formatter.getFieldIndex(col, row);
+    const fieldIndex = this.formatter.getFieldIndex(row, col);
     const figureIdToCheck = fields[fieldIndex].figure?.id
     const isItFirstOpponentMoveForFigure = moveHistory.filter(figureId => figureId === figureIdToCheck).length === 0;
     return isItFirstOpponentMoveForFigure
@@ -17,7 +17,7 @@ const KingValidationService = class extends ValidationService {
 
   isFieldsFree = (fieldsToCheck, fields) => {
     fieldsToCheck.forEach(field => {
-      if (!this.isFieldFree(field[1], field[0], fields)){
+      if (!this.isFieldFree(field[0], field[1], fields)){
         return false
       }
     })
@@ -26,7 +26,7 @@ const KingValidationService = class extends ValidationService {
 
   isFieldsInCheck = (fieldsToCheck, opponentPossibleMoves) => {
     fieldsToCheck.forEach(field => {
-      const fieldName = this.formatter.indexesToFieldName(field[1], field[0])
+      const fieldName = this.formatter.indexesToFieldName(field[0], field[1])
       if (opponentPossibleMoves.includes(fieldName)){
         return false
       }

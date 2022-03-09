@@ -23,13 +23,12 @@ const PawnValidationService = class extends ValidationService {
       return false
     }
     
-    const isFieldBusyByOpponentFigure = this.isFieldBusyByOpponentFigure(toCol, toRow - colorFactor, fields, figureColor);
+    const isFieldBusyByOpponentFigure = this.isFieldBusyByOpponentFigure(toRow - colorFactor, toCol, fields, figureColor);
     if (!isFieldBusyByOpponentFigure){
       return false
     }
     
-
-    const fieldIndex = this.formatter.getFieldIndex(toCol, toRow - colorFactor);
+    const fieldIndex = this.formatter.getFieldIndex(toRow - colorFactor, toCol);
     const opponentFigureId = fields[fieldIndex].figure?.id
     
     const isItFirstOpponentMoveForFigure = opponentMoveHistory.filter(figureId => figureId === opponentFigureId).length === 1;
@@ -63,12 +62,12 @@ const PawnValidationService = class extends ValidationService {
       return false
     }
 
-    const isFirstFieldFree = this.isFieldFree(toCol, toRow, fields);
+    const isFirstFieldFree = this.isFieldFree(toRow, toCol, fields);
     if (!isFirstFieldFree){
       return false
     }
 
-    const isSecondFieldFree = this.isFieldFree(toCol, fromRow + colorFactor, fields);
+    const isSecondFieldFree = this.isFieldFree(fromRow + colorFactor, toCol, fields);
     if (!isSecondFieldFree){
       return false
     }
@@ -88,7 +87,7 @@ const PawnValidationService = class extends ValidationService {
       return false
     }
 
-    const isFieldBusyByOpponentFigure = this.isFieldBusyByOpponentFigure(toCol, toRow, fields, figureColor)
+    const isFieldBusyByOpponentFigure = this.isFieldBusyByOpponentFigure(toRow, toCol, fields, figureColor)
     if (!isFieldBusyByOpponentFigure){
       return false
     }
@@ -108,7 +107,7 @@ const PawnValidationService = class extends ValidationService {
       return false
     }
 
-    const isFieldBusyByOpponentFigure = this.isFieldBusyByOpponentFigure(toCol, toRow, fields, figureColor);
+    const isFieldBusyByOpponentFigure = this.isFieldBusyByOpponentFigure(toRow, toCol, fields, figureColor);
     if (isFieldBusyByOpponentFigure){
       return false
     }

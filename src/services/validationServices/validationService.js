@@ -14,19 +14,19 @@ const ValidationService = class{
 
   singOfDelta = (firstNum, secondNum) => Math.sign(firstNum - secondNum)
 
-  isFieldFree = (colNumber, rowNumber, fields) => {
-    const fieldIndex = this.formatter.getFieldIndex(colNumber, rowNumber)
+  isFieldFree = (rowNumber, colNumber, fields) => {
+    const fieldIndex = this.formatter.getFieldIndex(rowNumber, colNumber)
     return !fields[fieldIndex].figure
   }
 
-  isFieldAvailableToMove = (colNumber, rowNumber, fields, figureColor) => {
-    const fieldIndex = this.formatter.getFieldIndex(colNumber, rowNumber)
+  isFieldAvailableToMove = (rowNumber, colNumber, fields, figureColor) => {
+    const fieldIndex = this.formatter.getFieldIndex(rowNumber, colNumber)
     return fields[fieldIndex].figure?.color !== figureColor
   };
 
-  isFieldBusyByOpponentFigure(colNumber, rowNumber, fields, figureColor){
+  isFieldBusyByOpponentFigure(rowNumber, colNumber, fields, figureColor){
     const opponentColor = figureColor === "white" ? "black" : 'white'
-    const fieldIndex = this.formatter.getFieldIndex(colNumber, rowNumber)
+    const fieldIndex = this.formatter.getFieldIndex(rowNumber, colNumber)
     return fields[fieldIndex].figure?.color === opponentColor
   }
 
