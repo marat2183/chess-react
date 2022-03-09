@@ -120,13 +120,27 @@ const MovingFiguresManagerService = class {
           selectedField.fieldName, 
           fieldToMove.fieldName, 
           fields, 
-          figureColor) 
+          figureColor
+        ) 
       case 'knight':
-        return this.knightValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName)
+        return this.knightValidation.isMoveValid(
+          selectedField.fieldName, 
+          fieldToMove.fieldName
+        )
       case 'bishop':
-        return this.bishopValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName, fields, figureColor)
+        return this.bishopValidation.isMoveValid(
+          selectedField.fieldName, 
+          fieldToMove.fieldName, 
+          fields, 
+          figureColor
+        )
       case 'queen':
-        return  this.queenValidation.isMoveValid(selectedField.fieldName, fieldToMove.fieldName, fields, figureColor)
+        return  this.queenValidation.isMoveValid(
+          selectedField.fieldName, 
+          fieldToMove.fieldName, 
+          fields, 
+          figureColor
+        )
       case 'king':
         const orderColor = this.orderManager.getOrderColor();
         const player = this.orderManager.getPlayerByOrder();

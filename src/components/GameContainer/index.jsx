@@ -17,7 +17,7 @@ const GameContainer = () => {
   const [order, setOrder] = useState('white');
 
   const setOrderHandler = () => {
-    const orderColor = gameManager.order;
+    const orderColor = gameManager.orderManager.getOrderColor();
     setOrder(orderColor)
   }
   

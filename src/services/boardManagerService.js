@@ -2,23 +2,15 @@ import { fieldsInit } from "fieldsData.js";
 
 
 const BoardManagerService = class {
-  constructor(formatter, moveValidation){
+  constructor(formatter, moveTypeValidation){
     this.formatter = formatter;
-    this.moveValidation = moveValidation;
+    this.moveTypeValidation = moveTypeValidation;
     this.fields = fieldsInit;
   }
 
   getFields = () => this.fields;
 
-  longCastlingUpdateFields = (currentFigureField, newFigureField) => {
-    const [toRow, toCol] = this.formatter.fieldNameToIndexes(newFigureField.fieldName);
-
-    const currentRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol - 2);
-    const currentRookField = this.fields[currentRookFieldIndex]
-
-    const newRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol + 1);
-    const newRookField = this.fields[newRookFieldIndex]
-
+  castlingUpdateFields = (currentFigureField, newFigureField, currentRookField, newRookField) => {
     const updatedFields = this.fields.map(field => {
       if (field.fieldName === newFigureField.fieldName){
         return {
@@ -56,20 +48,15 @@ const BoardManagerService = class {
     this.fields = updatedFields
   }
 
-  shortCastlingUpdateFields = (currentFigureField, newFigureField) => {
-    const [toRow, toCol] = this.formatter.fieldNameToIndexes(newFigureField.fieldName);
-
-    const currentRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol + 1);
-    const currentRookField = this.fields[currentRookFieldIndex]
-
-    const newRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol - 1);
-    const newRookField = this.fields[newRookFieldIndex]
-
+  pawnPromotionUpdateFields = (currentFigureField, newFigureField) => {
     const updatedFields = this.fields.map(field => {
       if (field.fieldName === newFigureField.fieldName){
         return {
           ...field,
-          figure: currentFigureField.figure
+          figure: {
+            ...currentFigureField.figure,
+            type: 'queen'
+          }
         }
       }
 
@@ -79,26 +66,9 @@ const BoardManagerService = class {
           figure: null
         }
       }
-
-      if (field.fieldName === currentRookField.fieldName){
-        return {
-          ...field,
-          figure: null
-        }
-      }
-
-      if (field.fieldName === newRookField.fieldName){
-        return {
-          ...field,
-          figure: {
-            id: currentRookField.figure.color === 'white' ? 1 : 17,
-            type: 'rook',
-            color: currentRookField.figure.color
-          }
-        }
-      }
       return field
     })
+
     this.fields = updatedFields
   }
 
@@ -158,22 +128,54 @@ const BoardManagerService = class {
     this.fields = updatedFields
   }
 
+  longCastlingHandler = (currentFigureField, newFigureField) => {
+    const [toRow, toCol] = this.formatter.fieldNameToIndexes(newFigureField.fieldName);
+
+    const currentRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol - 2);
+    const currentRookField = this.fields[currentRookFieldIndex]
+
+    const newRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol + 1);
+    const newRookField = this.fields[newRookFieldIndex]
+
+    this.castlingUpdateFields(currentFigureField, newFigureField, currentRookField, newRookField)
+  }
+
+  shortCastlingHandler = (currentFigureField, newFigureField) => {
+    const [toRow, toCol] = this.formatter.fieldNameToIndexes(newFigureField.fieldName);
+
+    const currentRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol + 1);
+    const currentRookField = this.fields[currentRookFieldIndex]
+
+    const newRookFieldIndex = this.formatter.getFieldIndex(toRow, toCol - 1);
+    const newRookField = this.fields[newRookFieldIndex]
+
+    this.castlingUpdateFields(currentFigureField, newFigureField, currentRookField, newRookField)
+  }
+
+  
+
   updateFieldsHandler = (currentFigureField, newFigureField) => {
-    if (this.moveValidation.isTakeOnThePassMove(currentFigureField, newFigureField, this.fields)) 
+
+    if (this.moveTypeValidation.isPawnPromotionMove(currentFigureField, newFigureField)){
+      this.pawnPromotionUpdateFields(currentFigureField, newFigureField)
+      return
+    }
+
+    if (this.moveTypeValidation.isTakeOnThePassMove(currentFigureField, newFigureField, this.fields)) 
     {
       this.takeOnThePassUpdateFields(currentFigureField, newFigureField)
       return
     }
 
-    if (this.moveValidation.isLongCastlingMove(currentFigureField, newFigureField))
+    if (this.moveTypeValidation.isLongCastlingMove(currentFigureField, newFigureField))
     {
-      this.longCastlingUpdateFields(currentFigureField, newFigureField, )
+      this.longCastlingHandler(currentFigureField, newFigureField, )
       return
     }
 
-    if (this.moveValidation.isShortCastlingMove(currentFigureField, newFigureField))
+    if (this.moveTypeValidation.isShortCastlingMove(currentFigureField, newFigureField))
     {
-      this.shortCastlingUpdateFields(currentFigureField, newFigureField, )
+      this.shortCastlingHandler(currentFigureField, newFigureField, )
       return
     }
   

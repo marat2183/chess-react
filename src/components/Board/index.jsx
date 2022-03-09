@@ -47,8 +47,9 @@ const Board = ({setGameError, setOrderHandler}) => {
       gameManager.changePlayerFigurePosition(field);
       gameManager.resetAvailableFieldsToMove();
       gameManager.resetPlayerSelectedField();
-      updateFieldsState();
       gameManager.toggleOrder();
+      updateFieldsState();
+      setOrderHandler()
       return
     }
     catch(e){

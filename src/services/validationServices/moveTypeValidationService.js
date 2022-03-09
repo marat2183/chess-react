@@ -1,6 +1,6 @@
 import ValidationService from "./validationService"
 
-const MoveValidationService = class extends ValidationService {
+const MoveTypeValidationService = class extends ValidationService {
 
   isTakeOnThePassMove = (currentFigureField, newFigureField, fields) => {
     const [fromRow, fromCol] = this.formatter.fieldNameToIndexes(currentFigureField.fieldName);
@@ -39,7 +39,28 @@ const MoveValidationService = class extends ValidationService {
     return currentFigureField.figure.type === 'king' && this.delta(toCol, fromCol) === 2
   }
 
-  
+  isPawnPromotionMove = (currentFigureField, newFigureField) => {
+    const [toRow,] = this.formatter.fieldNameToIndexes(newFigureField.fieldName);
+
+    if (
+        currentFigureField.figure.type === "pawn" && 
+        currentFigureField.figure.color === 'white' && 
+        toRow === 8
+       )
+    {
+      return true;
+    }
+
+    if (
+      currentFigureField.figure.type === "pawn" && 
+      currentFigureField.figure.color === 'black' && 
+      toRow === 1
+     )
+    {
+      return true;
+    }
+    return false; 
+  }
 }
 
-export default MoveValidationService
+export default MoveTypeValidationService

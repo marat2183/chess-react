@@ -4,7 +4,7 @@ import PlayerService from "./playerService";
 
 import ValidationService from "./validationServices/validationService";
 import FormatterService from "./formatterService";
-import MoveValidationService from "./validationServices/moveValidationService";
+import MoveTypeValidationService from "./validationServices/moveTypeValidationService";
 import KnightValidationService from "./validationServices/knightValidationService";
 import QueenValidationService from "./validationServices/queenValidationService";
 import BishopValidationService from "./validationServices/bishopValidationService";
@@ -100,7 +100,7 @@ const formatter = new FormatterService();
 const validation = new ValidationService(formatter);
 
 
-const moveValidation = new MoveValidationService(formatter)
+const moveTypeValidation = new MoveTypeValidationService(formatter)
 const knightValidation = new KnightValidationService(formatter);
 const queenValidation = new QueenValidationService(formatter);
 const bishopValidation = new BishopValidationService(formatter);
@@ -115,7 +115,7 @@ const orderManager = new OrderManagerService(
   START_FIGURE_COLOR
 )
 
-const boardManager = new BoardManagerService(formatter, moveValidation);
+const boardManager = new BoardManagerService(formatter, moveTypeValidation);
 
 const movingFiguresManager = new MovingFiguresManagerService(
   orderManager,
