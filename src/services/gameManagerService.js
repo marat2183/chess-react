@@ -101,12 +101,12 @@ const validation = new ValidationService(formatter);
 
 
 const moveTypeValidation = new MoveTypeValidationService(formatter)
-const knightValidation = new KnightMoveValidationService(formatter);
-const queenValidation = new QueenMoveValidationService(formatter);
-const bishopValidation = new BishopMoveValidationService(formatter);
-const rookValidation = new RookMoveValidationService(formatter);
-const pawnValidation = new PawnMoveValidationService(formatter);
-const kingValidation = new KingMoveValidationService(formatter);
+const knightMoveValidation = new KnightMoveValidationService(formatter);
+const queenMoveValidation = new QueenMoveValidationService(formatter);
+const bishopMoveValidation = new BishopMoveValidationService(formatter);
+const rookMoveValidation = new RookMoveValidationService(formatter);
+const pawnMoveValidation = new PawnMoveValidationService(formatter);
+const kingMoveValidation = new KingMoveValidationService(formatter);
 
 
 const orderManager = new OrderManagerService(
@@ -121,12 +121,12 @@ const movingFiguresManager = new MovingFiguresManagerService(
   orderManager,
   validation,
   formatter,
-  knightValidation,
-  queenValidation,
-  bishopValidation,
-  rookValidation,
-  pawnValidation,
-  kingValidation
+  knightMoveValidation,
+  queenMoveValidation,
+  bishopMoveValidation,
+  rookMoveValidation,
+  pawnMoveValidation,
+  kingMoveValidation
 )
 
 const gameManager = new GameManagerService(

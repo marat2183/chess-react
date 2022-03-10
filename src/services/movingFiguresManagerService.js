@@ -3,23 +3,23 @@ const MovingFiguresManagerService = class {
     orderManager,
     validation,
     formatter,
-    knightValidation,
-    queenValidation,
-    bishopValidation,
-    rookValidation,
-    pawnValidation,
-    kingValidation
+    knightMoveValidation,
+    queenMoveValidation,
+    bishopMoveValidation,
+    rookMoveValidation,
+    pawnMoveValidation,
+    kingMoveValidation
   )
   {
     this.orderManager = orderManager;
     this.formatter = formatter
     this.validation = validation
-    this.knightValidation = knightValidation;
-    this.queenValidation = queenValidation;
-    this.bishopValidation = bishopValidation;
-    this.rookValidation = rookValidation;
-    this.pawnValidation = pawnValidation;
-    this.kingValidation = kingValidation;
+    this.knightMoveValidation = knightMoveValidation;
+    this.queenMoveValidation = queenMoveValidation;
+    this.bishopMoveValidation = bishopMoveValidation;
+    this.rookMoveValidation = rookMoveValidation;
+    this.pawnMoveValidation = pawnMoveValidation;
+    this.kingMoveValidation = kingMoveValidation;
   }
 
   getFiguresFieldsByColor = (fields, figureColor) => fields.filter(field => field.figure?.color === figureColor)
@@ -108,7 +108,7 @@ const MovingFiguresManagerService = class {
     switch (selectedField.figure.type){
       case 'pawn':
         const opponentPlayer = this.orderManager.getOpponentPlayer();
-        return this.pawnValidation.isMoveValid(
+        return this.pawnMoveValidation.isMoveValid(
           selectedField.fieldName, 
           fieldToMove.fieldName, 
           fields, 
@@ -116,26 +116,26 @@ const MovingFiguresManagerService = class {
           opponentPlayer.figureMoveHistory
           )
       case 'rook':
-        return this.rookValidation.isMoveValid(
+        return this.rookMoveValidation.isMoveValid(
           selectedField.fieldName, 
           fieldToMove.fieldName, 
           fields, 
           figureColor
         ) 
       case 'knight':
-        return this.knightValidation.isMoveValid(
+        return this.knightMoveValidation.isMoveValid(
           selectedField.fieldName, 
           fieldToMove.fieldName
         )
       case 'bishop':
-        return this.bishopValidation.isMoveValid(
+        return this.bishopMoveValidation.isMoveValid(
           selectedField.fieldName, 
           fieldToMove.fieldName, 
           fields, 
           figureColor
         )
       case 'queen':
-        return  this.queenValidation.isMoveValid(
+        return  this.queenMoveValidation.isMoveValid(
           selectedField.fieldName, 
           fieldToMove.fieldName, 
           fields, 
@@ -146,16 +146,17 @@ const MovingFiguresManagerService = class {
         const player = this.orderManager.getPlayerByOrder();
         if (figureColor === orderColor){
           const opponentPossibleMoves = this.getAllOpponentPossibleMoves(fields)
-          return this.kingValidation.isMoveValid(
+          return this.kingMoveValidation.isMoveValid(
             selectedField.fieldName, 
             fieldToMove.fieldName, 
-            fields, figureColor, 
+            fields, 
+            figureColor, 
             orderColor,
             player.figureMoveHistory,
             opponentPossibleMoves
           )
         }
-        return this.kingValidation.isMoveValid(
+        return this.kingMoveValidation.isMoveValid(
           selectedField.fieldName, 
           fieldToMove.fieldName, 
           fields, 

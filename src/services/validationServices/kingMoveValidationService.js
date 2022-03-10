@@ -7,13 +7,12 @@ const KingMoveValidationService = class extends ValidationService {
     return fields[fieldIndex].figure?.type === 'rook' && fields[fieldIndex].figure?.color === figureColor
   }
 
-  isFirstMove = (row, col, fields, moveHistory) => {
+  isFirstMove = (row, col, fields, playerMoveHistory) => {
     const fieldIndex = this.formatter.getFieldIndex(row, col);
     const figureIdToCheck = fields[fieldIndex].figure?.id
-    const isItFirstOpponentMoveForFigure = moveHistory.filter(figureId => figureId === figureIdToCheck).length === 0;
+    const isItFirstOpponentMoveForFigure = playerMoveHistory.filter(figureId => figureId === figureIdToCheck).length === 0;
     return isItFirstOpponentMoveForFigure
   }
-
 
   isFieldsFree = (fieldsToCheck, fields) => {
     fieldsToCheck.forEach(field => {
@@ -34,7 +33,7 @@ const KingMoveValidationService = class extends ValidationService {
     return true
   }
 
-  canLongCastling = (fromRow, fromCol, toRow, toCol, fields, figureColor, moveHistory, opponentPossibleMoves) => {
+  canLongCastling = (fromRow, fromCol, toRow, toCol, fields, figureColor, playerMoveHistory, opponentPossibleMoves) => {
     
     const isFromRowCorrect = figureColor === 'white' ? fromRow === 1 : fromRow === 8
     if (!isFromRowCorrect){
@@ -63,14 +62,14 @@ const KingMoveValidationService = class extends ValidationService {
       return false
     }
 
-    const isFirstMoveForKing = this.isFirstMove(fromRow, fromCol, fields, moveHistory);
+    const isFirstMoveForKing = this.isFirstMove(fromRow, fromCol, fields, playerMoveHistory);
     if (!isFirstMoveForKing){
       return false
     }
 
     const isFirstMoveForRook = figureColor === 'white' ?
-    this.isFirstMove(1, 1, fields, moveHistory) :
-    this.isFirstMove(8, 1, fields, moveHistory)
+    this.isFirstMove(1, 1, fields, playerMoveHistory) :
+    this.isFirstMove(8, 1, fields, playerMoveHistory)
     if (!isFirstMoveForRook){
       return false
     }
@@ -89,7 +88,7 @@ const KingMoveValidationService = class extends ValidationService {
     return true
   }
 
-  canShortCastling = (fromRow, fromCol, toRow, toCol, fields, figureColor, moveHistory, opponentPossibleMoves) => {
+  canShortCastling = (fromRow, fromCol, toRow, toCol, fields, figureColor, playerMoveHistory, opponentPossibleMoves) => {
     const isFromRowCorrect = figureColor === 'white' ? fromRow === 1 : fromRow === 8
     if (!isFromRowCorrect){
       return false
@@ -117,14 +116,14 @@ const KingMoveValidationService = class extends ValidationService {
       return false
     }
 
-    const isFirstMoveForKing = this.isFirstMove(fromRow, fromCol, fields, moveHistory);
+    const isFirstMoveForKing = this.isFirstMove(fromRow, fromCol, fields, playerMoveHistory);
     if (!isFirstMoveForKing){
       return false
     }
 
     const isFirstMoveForRook = figureColor === 'white' ?
-    this.isFirstMove(1, 8, fields, moveHistory) :
-    this.isFirstMove(8, 8, fields, moveHistory)
+    this.isFirstMove(1, 8, fields, playerMoveHistory) :
+    this.isFirstMove(8, 8, fields, playerMoveHistory)
     if (!isFirstMoveForRook){
       return false
     }
@@ -154,7 +153,7 @@ const KingMoveValidationService = class extends ValidationService {
     return false
   }
 
-  isMoveValid = (fieldFrom, fieldTo,  fields, figureColor, orderColor, moveHistory, opponentPossibleMoves = []) => {
+  isMoveValid = (fieldFrom, fieldTo,  fields, figureColor, orderColor, playerMoveHistory, opponentPossibleMoves = []) => {
 
     const [fromRow, fromCol] = this.formatter.fieldNameToIndexes(fieldFrom);
     const [toRow, toCol] = this.formatter.fieldNameToIndexes(fieldTo);
@@ -163,8 +162,8 @@ const KingMoveValidationService = class extends ValidationService {
     if (figureColor === orderColor){
       if (
           this.canStepOrBeat(fromRow, fromCol, toRow, toCol) ||
-          this.canLongCastling(fromRow, fromCol, toRow, toCol, fields, figureColor, moveHistory, opponentPossibleMoves) ||
-          this.canShortCastling(fromRow, fromCol, toRow, toCol, fields, figureColor, moveHistory, opponentPossibleMoves)
+          this.canLongCastling(fromRow, fromCol, toRow, toCol, fields, figureColor, playerMoveHistory, opponentPossibleMoves) ||
+          this.canShortCastling(fromRow, fromCol, toRow, toCol, fields, figureColor, playerMoveHistory, opponentPossibleMoves)
          )
       {
         return true
